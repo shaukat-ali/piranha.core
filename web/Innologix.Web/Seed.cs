@@ -10,10 +10,11 @@ namespace Innologix.Web
     {
         public static async Task RunAsync(IApi api)
         {
-            if ((await api.Pages.GetStartpageAsync()) == null)
+            if ((await api.Pages.GetStartpageAsync()) != null)
+                return;
+
+            var images = new dynamic[]
             {
-                var images = new dynamic []
-                {
                     new { id = Guid.NewGuid(), filename = "screenshot2.png" },
                     new { id = Guid.NewGuid(), filename = "logo.png" },
                     new { id = Guid.NewGuid(), filename = "teaser1.png" },
@@ -21,86 +22,78 @@ namespace Innologix.Web
                     new { id = Guid.NewGuid(), filename = "teaser3.png" },
                     new { id = Guid.NewGuid(), filename = "drifter1.png" },
                     new { id = Guid.NewGuid(), filename = "drifter2.jpg" },
-                };
+            };
 
-                // Get the default site id
-                var siteId = (await api.Sites.GetDefaultAsync()).Id;
-                var site2Id = Guid.NewGuid();
+            // Get the default site id
+            var siteId = (await api.Sites.GetDefaultAsync()).Id;
 
-                await api.Sites.SaveAsync(new Piranha.Models.Site
+            // Upload images
+            foreach (var image in images)
+            {
+                using (var stream = File.OpenRead("seed/" + image.filename))
                 {
-                    Id = site2Id,
-                    Title = "Swedish",
-                    Culture = "sv-SE"
-                });
-
-                // Upload images
-                foreach (var image in images)
-                {
-                    using (var stream = File.OpenRead("seed/" + image.filename))
+                    await api.Media.SaveAsync(new Piranha.Models.StreamMediaContent()
                     {
-                        await api.Media.SaveAsync(new Piranha.Models.StreamMediaContent()
-                        {
-                            Id = image.id,
-                            Filename = image.filename,
-                            Data = stream
-                        });
-                    }
+                        Id = image.id,
+                        Filename = image.filename,
+                        Data = stream
+                    });
                 }
+            }
 
-                // Create the start page
-                var startpage = await Models.TeaserPage.CreateAsync(api).ConfigureAwait(false);
-                startpage.SiteId = siteId;
-                startpage.Title = "Piranha CMS - Open Source, Cross Platform Asp.NET Core CMS";
-                startpage.NavigationTitle = "Home";
-                startpage.MetaKeywords = "Piranha, Piranha CMS, CMS, AspNetCore, DotNetCore, MVC, .NET, .NET Core";
-                startpage.MetaDescription = "Piranha is the fun, fast and lightweight framework for developing cms-based web applications with AspNetCore.";
+            // Create the start page
+            var startpage = await Models.TeaserPage.CreateAsync(api).ConfigureAwait(false);
+            startpage.SiteId = siteId;
+            startpage.Title = "Piranha CMS - Open Source, Cross Platform Asp.NET Core CMS";
+            startpage.NavigationTitle = "Home";
+            startpage.MetaKeywords = "Piranha, Piranha CMS, CMS, AspNetCore, DotNetCore, MVC, .NET, .NET Core";
+            startpage.MetaDescription = "Piranha is the fun, fast and lightweight framework for developing cms-based web applications with AspNetCore.";
 
-                // Start page hero
-                startpage.Hero.Subtitle = "By developers - for developers";
-                startpage.Hero.PrimaryImage = images[1].id;
-                startpage.Hero.Ingress =
-                    "<p>A lightweight & unobtrusive CMS for ASP.NET Core.</p>" +
-                    "<p><small>Stable version 6.1.0 - 2019-05-01 - <a href=\"https://github.com/piranhacms/piranha.core/wiki/changelog\" target=\"_blank\">Changelog</a></small></p>";
+            // Start page hero
+            startpage.Hero.Subtitle = "By developers - for developers";
+            startpage.Hero.PrimaryImage = images[1].id;
+            startpage.Hero.Ingress =
+                "<p>A lightweight & unobtrusive CMS for ASP.NET Core.</p>" +
+                "<p><small>Stable version 6.1.0 - 2019-05-01 - <a href=\"https://github.com/piranhacms/piranha.core/wiki/changelog\" target=\"_blank\">Changelog</a></small></p>";
 
-                // Teasers
-                startpage.Teasers.Add(new Models.Regions.Teaser
-                {
-                    Title = "Cross Platform",
-                    Image = images[2].id,
-                    Body = "<p>Built for <code>NetStandard</code> and <code>AspNet Core</code>, Piranha CMS can be run on Windows, Linux and Mac OS X.</p>"
-                });
-                startpage.Teasers.Add(new Models.Regions.Teaser
-                {
-                    Title = "Super Fast",
-                    Image = images[3].id,
-                    Body = "<p>Designed from the ground up for super-fast performance using <code>EF Core</code> and optional Caching.</p>"
-                });
-                startpage.Teasers.Add(new Models.Regions.Teaser
-                {
-                    Title = "Open Source",
-                    Image = images[4].id,
-                    Body = "<p>Everything is Open Source and released under the <code>MIT</code> license for maximum flexibility.</p>"
-                });
+            // Teasers
+            startpage.Teasers.Add(new Models.Regions.Teaser
+            {
+                Title = "Cross Platform",
+                Image = images[2].id,
+                Body = "<p>Built for <code>NetStandard</code> and <code>AspNet Core</code>, Piranha CMS can be run on Windows, Linux and Mac OS X.</p>"
+            });
+            startpage.Teasers.Add(new Models.Regions.Teaser
+            {
+                Title = "Super Fast",
+                Image = images[3].id,
+                Body = "<p>Designed from the ground up for super-fast performance using <code>EF Core</code> and optional Caching.</p>"
+            });
+            startpage.Teasers.Add(new Models.Regions.Teaser
+            {
+                Title = "Open Source",
+                Image = images[4].id,
+                Body = "<p>Everything is Open Source and released under the <code>MIT</code> license for maximum flexibility.</p>"
+            });
 
-                // Start page blocks
-                startpage.Blocks.Add(new ImageBlock
+            // Start page blocks
+            startpage.Blocks.Add(new ImageBlock
+            {
+                Body = images[0].id
+            });
+            using (var stream = File.OpenRead("seed/startpage1.md"))
+            {
+                using (var reader = new StreamReader(stream))
                 {
-                    Body = images[0].id
-                });
-                using (var stream = File.OpenRead("seed/startpage1.md"))
-                {
-                    using (var reader = new StreamReader(stream))
+                    startpage.Blocks.Add(new HtmlBlock
                     {
-                        startpage.Blocks.Add(new HtmlBlock
-                        {
-                            Body = App.Markdown.Transform(reader.ReadToEnd())
-                        });
-                    }
+                        Body = App.Markdown.Transform(reader.ReadToEnd())
+                    });
                 }
-                startpage.Blocks.Add(new ImageGalleryBlock
-                {
-                    Items =
+            }
+            startpage.Blocks.Add(new ImageGalleryBlock
+            {
+                Items =
                     {
                         new ImageBlock
                         {
@@ -111,10 +104,10 @@ namespace Innologix.Web
                             Body = images[6].id
                         }
                     }
-                });
-                startpage.Blocks.Add(new ColumnBlock
-                {
-                    Items =
+            });
+            startpage.Blocks.Add(new ColumnBlock
+            {
+                Items =
                     {
                         new ImageBlock
                         {
@@ -129,62 +122,58 @@ namespace Innologix.Web
                             Body = images[5].id
                         }
                     }
-                });
-                using (var stream = File.OpenRead("seed/startpage2.md"))
+            });
+            using (var stream = File.OpenRead("seed/startpage2.md"))
+            {
+                using (var reader = new StreamReader(stream))
                 {
-                    using (var reader = new StreamReader(stream))
+                    startpage.Blocks.Add(new HtmlBlock
                     {
-                        startpage.Blocks.Add(new HtmlBlock
-                        {
-                            Body = App.Markdown.Transform(reader.ReadToEnd())
-                        });
-                    }
+                        Body = App.Markdown.Transform(reader.ReadToEnd())
+                    });
                 }
-                startpage.Published = DateTime.Now;
-                await api.Pages.SaveAsync(startpage);
+            }
+            startpage.Published = DateTime.Now;
+            await api.Pages.SaveAsync(startpage);
 
-                startpage.Id = Guid.NewGuid();
-                startpage.SiteId = site2Id;
-                await api.Pages.SaveAsync(startpage);
+            // Features page
+            var featurespage = await Models.StandardPage.CreateAsync(api);
+            featurespage.SiteId = siteId;
+            featurespage.Title = "Features";
+            featurespage.Route = "/pagewide";
+            featurespage.SortOrder = 1;
 
-                // Features page
-                var featurespage = await Models.StandardPage.CreateAsync(api);
-                featurespage.SiteId = siteId;
-                featurespage.Title = "Features";
-                featurespage.Route = "/pagewide";
-                featurespage.SortOrder = 1;
+            // Features hero
+            featurespage.Hero.Subtitle = "Features";
+            featurespage.Hero.Ingress = "<p>It's all about who has the sharpest teeth in the pond.</p>";
 
-                // Features hero
-                featurespage.Hero.Subtitle = "Features";
-                featurespage.Hero.Ingress = "<p>It's all about who has the sharpest teeth in the pond.</p>";
-
-                // Features blocks
-                using (var stream = File.OpenRead("seed/features.md"))
+            // Features blocks
+            using (var stream = File.OpenRead("seed/features.md"))
+            {
+                using (var reader = new StreamReader(stream))
                 {
-                    using (var reader = new StreamReader(stream))
+                    var body = reader.ReadToEnd();
+
+                    foreach (var section in body.Split("%"))
                     {
-                        var body = reader.ReadToEnd();
+                        var blocks = section.Split("@");
 
-                        foreach (var section in body.Split("%"))
+                        for (var n = 0; n < blocks.Length; n++)
                         {
-                            var blocks = section.Split("@");
+                            var cols = blocks[n].Split("|");
 
-                            for (var n = 0; n < blocks.Length; n++)
+                            if (cols.Length == 1)
                             {
-                                var cols = blocks[n].Split("|");
-
-                                if (cols.Length == 1)
+                                featurespage.Blocks.Add(new HtmlBlock
                                 {
-                                    featurespage.Blocks.Add(new HtmlBlock
-                                    {
-                                        Body = App.Markdown.Transform(cols[0].Trim())
-                                    });
-                                }
-                                else
+                                    Body = App.Markdown.Transform(cols[0].Trim())
+                                });
+                            }
+                            else
+                            {
+                                featurespage.Blocks.Add(new ColumnBlock
                                 {
-                                    featurespage.Blocks.Add(new ColumnBlock
-                                    {
-                                        Items =
+                                    Items =
                                         {
                                             new HtmlBlock
                                             {
@@ -195,128 +184,127 @@ namespace Innologix.Web
                                                 Body = App.Markdown.Transform(cols[1].Trim())
                                             }
                                         }
-                                    });
+                                });
 
-                                    if (n < blocks.Length - 1)
-                                    {
-                                        featurespage.Blocks.Add(new SeparatorBlock());
-                                    }
+                                if (n < blocks.Length - 1)
+                                {
+                                    featurespage.Blocks.Add(new SeparatorBlock());
                                 }
                             }
                         }
                     }
                 }
-                featurespage.Published = DateTime.Now;
-                await api.Pages.SaveAsync(featurespage);
-
-                // Blog Archive
-                var blogpage = await Models.BlogArchive.CreateAsync(api);
-                blogpage.Id = Guid.NewGuid();
-                blogpage.SiteId = siteId;
-                blogpage.Title = "Blog Archive";
-                blogpage.NavigationTitle = "Blog";
-                blogpage.SortOrder = 2;
-                blogpage.MetaKeywords = "Piranha, Piranha CMS, CMS, AspNetCore, DotNetCore, MVC, Blog, News";
-                blogpage.MetaDescription = "Read the latest blog posts about Piranha, fast and lightweight framework for developing cms-based web applications with AspNetCore.";
-
-                // Blog Hero
-                blogpage.Hero.Subtitle = "Blog Archive";
-                blogpage.Hero.Ingress = "<p>Welcome to the blog, the best place to stay up to date with what's happening in the Piranha infested waters.</p>";
-
-                blogpage.Published = DateTime.Now;
-                await api.Pages.SaveAsync(blogpage);
-
-                // Blog Post
-                var blogpost = await Models.BlogPost.CreateAsync(api);
-                blogpost.BlogId = blogpage.Id;
-                blogpost.Title = "What is Piranha";
-                blogpost.Excerpt = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.";
-                blogpost.Category = "Piranha CMS";
-                blogpost.Tags.Add("welcome");
-
-                using (var stream = File.OpenRead("seed/blogpost.md"))
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var body = reader.ReadToEnd();
-
-                        foreach (var block in body.Split("@"))
-                        {
-                            blogpost.Blocks.Add(new HtmlBlock
-                            {
-                                Body = App.Markdown.Transform(block.Trim())
-                            });
-                        }
-                    }
-                }
-                blogpost.Published = DateTime.Now;
-                await api.Posts.SaveAsync(blogpost);
-
-                // Add some comments
-                var comment =  new Piranha.Models.Comment
-                {
-                    Author = "Håkan Edling",
-                    Email = "hakan@tidyui.com",
-                    Url = "http://piranhacms.org",
-                    Body = "Awesome to see that the project is up and running! Now maybe it's time to start customizing it to your needs. You can find a lot of information in the official docs.",
-                    IsApproved = true
-                };
-                await api.Posts.SaveCommentAsync(blogpost.Id, comment);
-
-                comment.Id = Guid.Empty;
-                comment.IsApproved = false;
-
-                await api.Pages.SaveCommentAsync(featurespage.Id, comment);
-
-                // Unpublished Post
-                blogpost = await Models.BlogPost.CreateAsync(api);
-                blogpost.BlogId = blogpage.Id;
-                blogpost.Title = "What is Piranha unpublished";
-                blogpost.Category = "Piranha CMS";
-                blogpost.Tags.Add("welcome");
-
-                using (var stream = File.OpenRead("seed/blogpost.md"))
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var body = reader.ReadToEnd();
-
-                        foreach (var block in body.Split("@"))
-                        {
-                            blogpost.Blocks.Add(new HtmlBlock
-                            {
-                                Body = App.Markdown.Transform(block.Trim())
-                            });
-                        }
-                    }
-                }
-                await api.Posts.SaveAsync(blogpost);
-
-                // Scheduled Post
-                blogpost = await Models.BlogPost.CreateAsync(api);
-                blogpost.BlogId = blogpage.Id;
-                blogpost.Title = "What is Piranha scheduled";
-                blogpost.Category = "Another category";
-                blogpost.Tags.Add("welcome");
-
-                using (var stream = File.OpenRead("seed/blogpost.md"))
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var body = reader.ReadToEnd();
-
-                        foreach (var block in body.Split("@"))
-                        {
-                            blogpost.Blocks.Add(new HtmlBlock
-                            {
-                                Body = App.Markdown.Transform(block.Trim())
-                            });
-                        }
-                    }
-                }
-                blogpost.Published = DateTime.Now.AddDays(7);
-                await api.Posts.SaveAsync(blogpost);
             }
+            featurespage.Published = DateTime.Now;
+            await api.Pages.SaveAsync(featurespage);
+
+            // Blog Archive
+            var blogpage = await Models.BlogArchive.CreateAsync(api);
+            blogpage.Id = Guid.NewGuid();
+            blogpage.SiteId = siteId;
+            blogpage.Title = "Blog Archive";
+            blogpage.NavigationTitle = "Blog";
+            blogpage.SortOrder = 2;
+            blogpage.MetaKeywords = "Piranha, Piranha CMS, CMS, AspNetCore, DotNetCore, MVC, Blog, News";
+            blogpage.MetaDescription = "Read the latest blog posts about Piranha, fast and lightweight framework for developing cms-based web applications with AspNetCore.";
+
+            // Blog Hero
+            blogpage.Hero.Subtitle = "Blog Archive";
+            blogpage.Hero.Ingress = "<p>Welcome to the blog, the best place to stay up to date with what's happening in the Piranha infested waters.</p>";
+
+            blogpage.Published = DateTime.Now;
+            await api.Pages.SaveAsync(blogpage);
+
+            // Blog Post
+            var blogpost = await Models.BlogPost.CreateAsync(api);
+            blogpost.BlogId = blogpage.Id;
+            blogpost.Title = "What is Piranha";
+            blogpost.Excerpt = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.";
+            blogpost.Category = "Piranha CMS";
+            blogpost.Tags.Add("welcome");
+
+            using (var stream = File.OpenRead("seed/blogpost.md"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    var body = reader.ReadToEnd();
+
+                    foreach (var block in body.Split("@"))
+                    {
+                        blogpost.Blocks.Add(new HtmlBlock
+                        {
+                            Body = App.Markdown.Transform(block.Trim())
+                        });
+                    }
+                }
+            }
+            blogpost.Published = DateTime.Now;
+            await api.Posts.SaveAsync(blogpost);
+
+            // Add some comments
+            var comment = new Piranha.Models.Comment
+            {
+                Author = "Håkan Edling",
+                Email = "hakan@tidyui.com",
+                Url = "http://piranhacms.org",
+                Body = "Awesome to see that the project is up and running! Now maybe it's time to start customizing it to your needs. You can find a lot of information in the official docs.",
+                IsApproved = true
+            };
+            await api.Posts.SaveCommentAsync(blogpost.Id, comment);
+
+            comment.Id = Guid.Empty;
+            comment.IsApproved = false;
+
+            await api.Pages.SaveCommentAsync(featurespage.Id, comment);
+
+            // Unpublished Post
+            blogpost = await Models.BlogPost.CreateAsync(api);
+            blogpost.BlogId = blogpage.Id;
+            blogpost.Title = "What is Piranha unpublished";
+            blogpost.Category = "Piranha CMS";
+            blogpost.Tags.Add("welcome");
+
+            using (var stream = File.OpenRead("seed/blogpost.md"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    var body = reader.ReadToEnd();
+
+                    foreach (var block in body.Split("@"))
+                    {
+                        blogpost.Blocks.Add(new HtmlBlock
+                        {
+                            Body = App.Markdown.Transform(block.Trim())
+                        });
+                    }
+                }
+            }
+            await api.Posts.SaveAsync(blogpost);
+
+            // Scheduled Post
+            blogpost = await Models.BlogPost.CreateAsync(api);
+            blogpost.BlogId = blogpage.Id;
+            blogpost.Title = "What is Piranha scheduled";
+            blogpost.Category = "Another category";
+            blogpost.Tags.Add("welcome");
+
+            using (var stream = File.OpenRead("seed/blogpost.md"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    var body = reader.ReadToEnd();
+
+                    foreach (var block in body.Split("@"))
+                    {
+                        blogpost.Blocks.Add(new HtmlBlock
+                        {
+                            Body = App.Markdown.Transform(block.Trim())
+                        });
+                    }
+                }
+            }
+            blogpost.Published = DateTime.Now.AddDays(7);
+            await api.Posts.SaveAsync(blogpost);
         }
     }
 }

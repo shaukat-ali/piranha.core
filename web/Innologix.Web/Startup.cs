@@ -9,6 +9,7 @@ using Piranha.Data.EF.SQLite;
 using Piranha.AspNetCore.Identity.SQLite;
 using Piranha.AttributeBuilder;
 using Piranha.Local;
+using System.Reflection;
 
 namespace Innologix.Web
 {
@@ -35,15 +36,18 @@ namespace Innologix.Web
                     config.AllowAnonymousAccess = true;
                 });
 
+                //SQLite Db setup
+                var dbName = Assembly.GetExecutingAssembly().GetName().Name;
+
                 options.UseEF<SQLiteDb>(db =>
-                    db.UseSqlite("Filename=./Innologix.Web.db"));
+                    db.UseSqlite($"Filename=./{dbName}.db"));
                 options.UseIdentityWithSeed<IdentitySQLiteDb>(db =>
-                    db.UseSqlite("Filename=./Innologix.Web.db"));
+                    db.UseSqlite($"Filename=./{dbName}.db"));
             });
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "PiranhaCMS API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "CMS API", Version = "v1" });
                 options.CustomSchemaIds(x => x.FullName);
             });
         }
@@ -60,7 +64,7 @@ namespace Innologix.Web
                 // specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "PiranhaCMS API V1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "CMS API V1");
                 });
             }
 

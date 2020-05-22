@@ -1,9 +1,7 @@
 {
   "name": "mvc",
   "version": "1.0.0",
-  "description": "Example MVC Web App for Piranha",
-  "main": "index.js",
-  "author": "Håkan Edling",
+  "description": "MVC Web App for Innologix",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^4.0.2",
