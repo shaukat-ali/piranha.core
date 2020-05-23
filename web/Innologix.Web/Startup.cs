@@ -35,6 +35,7 @@ namespace Innologix.Web
                 {
                     config.AllowAnonymousAccess = true;
                 });
+                options.AddLayoutModules();
 
                 //SQLite Db setup
                 var dbName = Assembly.GetExecutingAssembly().GetName().Name;
@@ -98,6 +99,7 @@ namespace Innologix.Web
                 options.UseManager();
                 options.UseTinyMCE();
                 options.UseIdentity();
+                options.UseLayoutModules();
             });
 
             Seed.RunAsync(api).GetAwaiter().GetResult();

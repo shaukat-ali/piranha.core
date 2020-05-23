@@ -27,5 +27,6 @@
     <ProjectReference Include="..\..\data\Piranha.Data.EF.MySql\Piranha.Data.EF.MySql.csproj" />
     <ProjectReference Include="..\..\data\Piranha.Data.EF.PostgreSql\Piranha.Data.EF.PostgreSql.csproj" />
     <ProjectReference Include="..\..\core\Piranha.WebApi\Piranha.WebApi.csproj" />
+    <ProjectReference Include="..\..\extensions\Innologix.Layout\Innologix.Layouts.csproj" />
   </ItemGroup>
 </Project>

@@ -96,9 +96,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piranha.Data.EF.PostgreSql"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piranha.Azure.Search", "core\Piranha.Azure.Search\Piranha.Azure.Search.csproj", "{02521046-DE43-4511-8D4C-BC7330884373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innologix.Web", "web\Innologix.Web\Innologix.Web.csproj", "{AF78249E-CE53-4D68-9258-73459237B12E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Innologix.Web", "web\Innologix.Web\Innologix.Web.csproj", "{AF78249E-CE53-4D68-9258-73459237B12E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{870121BD-30AB-4D7E-9DB4-E871AB2016C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "extensions", "extensions", "{874ED262-D5E9-43A5-A511-DD9DBFA92620}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innologix.Layouts", "extensions\Innologix.Layout\Innologix.Layouts.csproj", "{6817DF29-CEEC-4A3D-B7B9-404DEE34296E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -214,6 +218,10 @@ Global
 		{AF78249E-CE53-4D68-9258-73459237B12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF78249E-CE53-4D68-9258-73459237B12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF78249E-CE53-4D68-9258-73459237B12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6817DF29-CEEC-4A3D-B7B9-404DEE34296E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6817DF29-CEEC-4A3D-B7B9-404DEE34296E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6817DF29-CEEC-4A3D-B7B9-404DEE34296E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6817DF29-CEEC-4A3D-B7B9-404DEE34296E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -246,6 +254,7 @@ Global
 		{F6DD71E5-F9F8-4150-8A0B-851EADAE532B} = {DCC52317-BC88-4F0A-923F-C9D9F6D952ED}
 		{02521046-DE43-4511-8D4C-BC7330884373} = {42A64587-89B5-48F2-84D4-85B97F7847F1}
 		{AF78249E-CE53-4D68-9258-73459237B12E} = {870121BD-30AB-4D7E-9DB4-E871AB2016C9}
+		{6817DF29-CEEC-4A3D-B7B9-404DEE34296E} = {874ED262-D5E9-43A5-A511-DD9DBFA92620}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF88AA05-D127-4707-8214-A230F0DA569B}
