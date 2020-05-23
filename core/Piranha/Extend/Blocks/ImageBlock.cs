@@ -15,7 +15,7 @@ namespace Piranha.Extend.Blocks
     /// <summary>
     /// Image block.
     /// </summary>
-    [BlockType(Name = "Image", Category = "Media", Icon = "fas fa-image", Component = "image-block")]
+    [BlockType(Name = "Image", Category = "Media", Icon = "fas fa-image", Component = "image-block", SortOrder = 100)]
     public class ImageBlock : Block
     {
         /// <summary>

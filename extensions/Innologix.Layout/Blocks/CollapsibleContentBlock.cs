@@ -1,23 +1,18 @@
-/*
- * Copyright (c) .NET Foundation and Contributors
- *
- * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
- *
- * https://github.com/piranhacms/piranha.core
- *
- */
 
 using System.Text;
+using Piranha.Extend;
+using Piranha.Extend.Blocks;
 using Piranha.Models;
 
-namespace Piranha.Extend.Blocks
+namespace Innologix.Layouts.Blocks
 {
     /// <summary>
     /// Single column quote block.
     /// </summary>
-    [BlockGroupType(Name = "Columns", Category = "Layouts", Icon = "fas fa-columns", Display = BlockDisplayMode.Horizontal, SortOrder = 100)]
-    public class ColumnBlock : BlockGroup, ISearchable
+    [BlockGroupType(Name = "Collapsible", Category = "Layouts", Icon = "fas fa-chevron-up", Component = "content-group-block")]
+    [BlockItemType(Type = typeof(ImageBlock))]
+    [BlockItemType(Type = typeof(HtmlBlock))]
+    public class CollapsibleContentBlock : BlockGroup, ISearchable
     {
         /// <summary>
         /// Gets the content that should be indexed for searching.

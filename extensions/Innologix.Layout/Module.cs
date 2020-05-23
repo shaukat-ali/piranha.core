@@ -71,7 +71,8 @@ namespace Innologix.Layout.Modules
         /// </summary>
         public void Init()
         {
-            App.Blocks.Register<Column2Block>();
+            App.Blocks.Register<TabsContentBlock>();
+            App.Blocks.Register<CollapsibleContentBlock>();
         }
     }
 }

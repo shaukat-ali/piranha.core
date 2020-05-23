@@ -71,5 +71,7 @@ namespace Piranha.Extend
                 }
             }
         }
+
+        public int SortOrder { get; set; } = 1000;
     }
 }

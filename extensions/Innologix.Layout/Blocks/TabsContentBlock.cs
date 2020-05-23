@@ -1,6 +1,7 @@
 
 using System.Text;
 using Piranha.Extend;
+using Piranha.Extend.Blocks;
 using Piranha.Models;
 
 namespace Innologix.Layouts.Blocks
@@ -8,8 +9,10 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// Single column quote block.
     /// </summary>
-    [BlockGroupType(Name = "Columns 2", Category = "Layouts", Icon = "fas fa-columns", IsGeneric = false)]
-    public class Column2Block : BlockGroup, ISearchable
+    [BlockGroupType(Name = "Tabs", Category = "Layouts", Icon = "far fa-window-restore", Component = "content-group-block")]
+    [BlockItemType(Type = typeof(ImageBlock))]
+    [BlockItemType(Type = typeof(HtmlBlock))]
+    public class TabsContentBlock : BlockGroup, ISearchable
     {
         /// <summary>
         /// Gets the content that should be indexed for searching.

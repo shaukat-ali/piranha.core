@@ -15,7 +15,7 @@ namespace Piranha.Extend.Blocks
     /// <summary>
     /// Video block.
     /// </summary>
-    [BlockType(Name = "Video", Category = "Media", Icon = "fas fa-video", Component = "video-block")]
+    [BlockType(Name = "Video", Category = "Media", Icon = "fas fa-video", Component = "video-block", IsUnlisted = true, SortOrder = 300)]
     public class VideoBlock : Block
     {
         /// <summary>

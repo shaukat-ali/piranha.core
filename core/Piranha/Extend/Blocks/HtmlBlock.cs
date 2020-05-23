@@ -16,7 +16,7 @@ namespace Piranha.Extend.Blocks
     /// <summary>
     /// Single column HTML block.
     /// </summary>
-    [BlockType(Name = "Content", Category = "Content", Icon = "fas fa-paragraph", Component = "html-block")]
+    [BlockType(Name = "Rich Text", Category = "Content", Icon = "fas fa-paragraph", Component = "html-block", SortOrder = 200)]
     public class HtmlBlock : Block, ISearchable
     {
         /// <summary>

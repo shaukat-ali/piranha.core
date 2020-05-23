@@ -13,7 +13,7 @@ namespace Piranha.Extend.Blocks
     /// <summary>
     /// Separator
     /// </summary>
-    [BlockType(Name = "Separator", Category = "Content", Icon = "fas fa-divide", Component = "separator-block")]
+    [BlockType(Name = "Separator", Category = "Content", Icon = "fas fa-divide", Component = "separator-block", SortOrder = 500)]
     public class SeparatorBlock : Block
     {
         public override string GetTitle()

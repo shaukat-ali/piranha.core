@@ -15,7 +15,7 @@ namespace Piranha.Extend.Blocks
     /// <summary>
     /// Audio block.
     /// </summary>
-    [BlockType(Name = "Audio", Category = "Media", Icon = "fas fa-headphones", Component = "audio-block")]
+    [BlockType(Name = "Audio", Category = "Media", Icon = "fas fa-headphones", Component = "audio-block", IsUnlisted = true)]
     public class AudioBlock : Block
     {
         /// <summary>
