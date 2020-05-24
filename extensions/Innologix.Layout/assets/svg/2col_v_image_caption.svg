@@ -1,0 +1,27 @@
+<svg viewBox="0 0 108 74" version="1.1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(8.000000, 10.000000)">
+            <g>
+                <use fill="#FDFDFD" fill-rule="evenodd"></use>
+                <rect stroke-opacity="0.2" stroke="#979797" stroke-width="1.5" x="0.5" y="0.5" width="43" height="33"></rect>
+            </g>
+            <polygon fill="#666666" fill-rule="evenodd" points="17.7304061 16.4633821 19.6563122 18.4540679 24.0304259 12 30.2857143 22 14 22"></polygon>
+            <circle fill="#666666" fill-rule="evenodd" cx="17.4285714" cy="11.7142857" r="1.71428571"></circle>
+        </g>
+        <rect fill="#9E9E9E" x="11" y="51" width="39" height="2.5"></rect>
+        <rect fill="#E0E0E0" x="11" y="59" width="39" height="1.5"></rect>
+        <rect fill="#E0E0E0" x="15" y="64" width="30" height="1.5"></rect>
+
+        <g transform="translate(56.000000, 10.000000)">
+            <g>
+                <use fill="#FDFDFD" fill-rule="evenodd"></use>
+                <rect stroke-opacity="0.2" stroke="#979797" stroke-width="1.5" x="0.5" y="0.5" width="43" height="33"></rect>
+            </g>
+            <polygon fill="#666666" fill-rule="evenodd" points="17.7304061 16.4633821 19.6563122 18.4540679 24.0304259 12 30.2857143 22 14 22"></polygon>
+            <circle fill="#666666" fill-rule="evenodd" cx="17.4285714" cy="11.7142857" r="1.71428571"></circle>
+        </g>
+        <rect fill="#9E9E9E" x="59" y="51" width="39" height="2.5"></rect>
+        <rect fill="#E0E0E0" x="59" y="59" width="39" height="1.5"></rect>
+        <rect fill="#E0E0E0" x="63" y="64" width="30" height="1.5"></rect>
+    </g>
+</svg>

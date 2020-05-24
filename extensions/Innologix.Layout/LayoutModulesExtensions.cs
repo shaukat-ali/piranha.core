@@ -31,12 +31,10 @@ public static class LayoutModulesExtensions
         App.Modules.Manager().Scripts
            .Add("~/manager/simplemodule/js/header-block.js");
 
-        // Add the embedded resources
         return builder.UseStaticFiles(new StaticFileOptions
         {
-            FileProvider = new EmbeddedFileProvider(typeof(LayoutModulesExtensions).Assembly,
-                "SimpleModule.assets.dist"),
-            RequestPath = "/manager/simplemodule"
-        });
+            FileProvider = new EmbeddedFileProvider(typeof(ManagerModuleExtensions).Assembly, "Innologix.Layouts.assets.dist"),
+            RequestPath = "/manager/assets"
+        });      
     }
 }

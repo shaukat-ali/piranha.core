@@ -1,0 +1,15 @@
+<svg viewBox="0 0 108 74" version="1.1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g transform="translate(0,0)"  fill="none">
+        <path d="M 0 1 C 0 0.4 0.4 0 1 0 L 107 0 C 107.6 0 108 0.5 108 1 L 108 73 C 108 73.6 107.6 74 107 74 L 1 74 C 0.4 74 0 73.5 0 73 L 0 1 Z"></path>
+        <g transform="translate(8,20)">
+            <rect stroke-opacity="0.2" stroke="#979797" stroke-width="2" x="0.5" y="0.5" width="43" height="33"></rect>
+        
+            <polygon id="Rectangle-624" fill="#666666" fill-rule="evenodd" points="17.5,16.5 19.7,18.5 24,12 30.3,22 14,22"></polygon>
+            <circle id="Oval-10" fill="#666666" fill-rule="evenodd" cx="17.4" cy="11.7" r="1.7"></circle>
+        </g>
+        <rect fill="#9e9e9e" x="57" y="23" width="39" height="2.5"></rect>
+        <rect fill="#e0e0e0" x="57" y="31" width="43" height="1.5"></rect>
+        <rect fill="#e0e0e0" x="57" y="36" width="43" height="1.5"></rect>
+        <rect fill="#e0e0e0" x="57" y="41" width="28" height="1.5"></rect>
+    </g>
+</svg>
