@@ -65,5 +65,7 @@ namespace Piranha.Runtime
         /// displayed in the manager interface.
         /// </summary>
         public BlockDisplayMode Display { get; set; } = BlockDisplayMode.MasterDetail;
+
+        public int SortOrder { get; set; }    
     }
 }

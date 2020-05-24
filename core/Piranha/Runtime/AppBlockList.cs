@@ -67,6 +67,7 @@ namespace Piranha.Runtime
                 item.IsUnlisted = attr.IsUnlisted;
                 item.IsGeneric = attr.IsGeneric;
                 item.Component = !string.IsNullOrWhiteSpace(attr.Component) ? attr.Component : "missing-block";
+                item.SortOrder = attr.SortOrder;
 
                 if (attr is BlockGroupTypeAttribute groupAttr)
                 {

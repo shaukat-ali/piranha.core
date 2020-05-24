@@ -55,7 +55,7 @@ namespace Piranha.Manager.Services
                     Name = category
                 };
 
-                var items = App.Blocks.GetByCategory(category).OrderBy(i => i.Name).ToList();
+                var items = App.Blocks.GetByCategory(category).OrderBy(i => i.SortOrder).ToList();
 
                 // If we have a parent, filter on allowed types
                 if (parent != null)
