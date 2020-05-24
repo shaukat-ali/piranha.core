@@ -14,6 +14,8 @@ namespace Piranha.Models
     {
         MasterDetail,
         Horizontal,
-        Vertical
+        Vertical,
+        Collapsible,
+        Tabs
     }
 }

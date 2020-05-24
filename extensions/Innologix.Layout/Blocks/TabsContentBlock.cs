@@ -9,7 +9,7 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// Single column quote block.
     /// </summary>
-    [BlockGroupType(Name = "Tabs", Category = "Layouts", Icon = "far fa-window-restore", Component = "grouped-content-block")]
+    [BlockGroupType(Name = "Tabs", Category = "Layouts", Icon = "far fa-window-restore", Display = BlockDisplayMode.Tabs)]
     [BlockItemType(Type = typeof(ImageBlock))]
     [BlockItemType(Type = typeof(HtmlBlock))]
     public class TabsContentBlock : BlockGroup, ISearchable

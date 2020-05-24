@@ -29,12 +29,12 @@ public static class LayoutModulesExtensions
     {
         // Manager resources
         App.Modules.Manager().Scripts
-           .Add("~/manager/simplemodule/js/header-block.js");
+           .Add("~/manager/layouts/js/innologix.contentedit.js");
 
         return builder.UseStaticFiles(new StaticFileOptions
         {
-            FileProvider = new EmbeddedFileProvider(typeof(ManagerModuleExtensions).Assembly, "Innologix.Layouts.assets.dist"),
-            RequestPath = "/manager/assets"
-        });      
+            FileProvider = new EmbeddedFileProvider(typeof(LayoutModulesExtensions).Assembly, "Innologix.Layouts.assets.dist"),
+            RequestPath = "/manager/layouts"
+        });
     }
 }

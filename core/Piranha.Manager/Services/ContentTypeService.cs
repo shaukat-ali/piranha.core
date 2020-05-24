@@ -236,8 +236,9 @@ namespace Piranha.Manager.Services
 
                     if (blockType.Display != BlockDisplayMode.MasterDetail)
                     {
-                        item.Meta.Component = blockType.Display == BlockDisplayMode.Horizontal ?
-                            "block-group-horizontal" : "block-group-vertical";
+                        item.Meta.Component = $"block-group-{blockType.Display.ToString().ToLower()}";
+                            //blockType.Display == BlockDisplayMode.Horizontal ?
+                            //"block-group-horizontal" : "block-group-vertical";
                     }
 
                     item.Fields = ContentUtils.GetBlockFields(block);

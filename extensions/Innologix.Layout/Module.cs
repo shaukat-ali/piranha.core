@@ -17,7 +17,7 @@ namespace Innologix.Layout.Modules
         /// <summary>
         /// Gets the Name
         /// </summary>
-        public string Name => "Innologix.Layout.Modules";
+        public string Name => "Innologix.Layouts";
 
         /// <summary>
         /// Gets the Version

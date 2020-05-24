@@ -92,10 +92,10 @@ var gulp = require("gulp"),
 var output = "assets/dist/";
 //var output = "wwwroot/assets/";
 
-//var css = [
-//    "assets/src/scss/slim.scss",
-//    "assets/src/scss/full.scss"
-//];
+var css = [
+    //"assets/src/scss/slim.scss",
+    //"assets/src/scss/full.scss"
+];
 
 var resources = [
     {
@@ -108,9 +108,10 @@ var resources = [
 
 var js = [
     {
-        name: "innologix.layouts.contentedit.js",
+        name: "innologix.contentedit.js",
         items: [
-            "assets/src/components/grouped-content-block.vue"
+            "assets/src/components/block-group-collapsible.vue",
+            "assets/src/components/block-group-tabs.vue"
         ]
     }
 ];
@@ -132,7 +133,7 @@ gulp.task("layouts_min:css", function (done) {
 
     // Copy fonts
     for (var n = 0; n < resources.length; n++) {
-        for (var k = 0; k < resources[n].items.length; n++) {
+        for (var k = 0; k < resources[n].items.length; k++) {
             gulp.src(resources[n].items[k])
                 .pipe(gulp.dest(output + resources[n].folder));
         }
