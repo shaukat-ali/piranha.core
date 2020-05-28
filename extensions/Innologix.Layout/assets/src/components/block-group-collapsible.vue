@@ -43,7 +43,9 @@
                         </div>
                     </div>
                     <hr class="divider" />
-                    <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="toolbar" v-bind:model="child.model"></component>
+                    <div class="block-body-wrapper" :id="child.meta.uid + '_wrapper'">
+                        <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="child.meta.uid + '_wrapper'" v-bind:model="child.model"></component>
+                    </div>
                 </div>
             </div>
         </div>
