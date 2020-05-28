@@ -1,0 +1,101 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "variables";
+
+.block {
+    &.block-group-collapsible,
+    &.block-group-tabs {
+        .block-group-header {
+            background: $gray-100;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: .25rem;
+        }
+
+        &:hover, &:focus-within {
+            .block:not(.danger):not(.collapsed) {
+                border-color: transparent;
+            }
+        }
+
+        .block-group-actions {
+            opacity: 0;
+        }
+    }
+
+    &.block-group-collapsible {
+        padding-bottom: 1rem;
+
+        .block {
+            padding-bottom: 1rem;
+
+            .block-header {
+                opacity: 1;
+                padding-bottom: 0;
+
+                .title {
+                    min-width: 200px;
+                    width: calc(100% - 95px);
+
+                    div {
+                        color: $gray-900;
+                        line-height: 1.75rem;
+                        font-size: large;
+                    }
+
+                    &.empty-text {
+                        opacity: 0.4;
+
+                        &:focus-within {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .actions {
+                    opacity: 0;
+                    padding-top: .3rem;
+                }
+            }
+
+            hr.divider {
+                margin-top: 0;
+                margin-bottom: .5rem;
+            }
+
+            &.collapsed {
+                margin-bottom:1rem;
+
+                hr.divider {
+                    display: none;
+                }
+            }
+
+            .mce-content-body {
+                min-height: 8rem;
+            }
+
+            .block-body {
+                .tox-tinymce {
+                    position: absolute;
+                    top: 10px;
+                    width: auto !important;
+                }
+            }
+        }
+    }
+
+    .block-group-actions {
+        position: absolute;
+        top: .5rem;
+        right: 7rem;
+        transition: opacity ease-in-out .2s;
+    }
+
+    &:hover, &:focus-within {
+        .block-group-actions,
+        .actions {
+            opacity: 1 !important;
+        }
+    }
+}

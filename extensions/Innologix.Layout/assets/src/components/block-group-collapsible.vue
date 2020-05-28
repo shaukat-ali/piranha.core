@@ -1,6 +1,9 @@
 <template>
     <div :id="uid" class="block-group">
         <div class="actions block-group-actions">
+            <button v-on:click.prevent="piranha.blockpicker.open(addGroupBlock, model.items.length, model.type)" class="btn btn-sm add">
+                <i class="fas fa-plus"></i>
+            </button>
             <button v-on:click.prevent="toggleHeader()" v-if="model.fields.length > 0" class="btn btn-sm" :class="{ selected: model.meta.showHeader }">
                 <i class="fas fa-list"></i>
             </button>
@@ -15,10 +18,6 @@
             </div>
         </div>
         <div class="block-group-items">
-            <a href="#" class="block-add unsortable" v-on:click.prevent="piranha.blockpicker.open(addGroupBlock, 0, model.type)">
-                <hr>
-                <i class="fas fa-plus-circle"></i>
-            </a>
             <div v-if="model.items.length === 0" class="col">
                 <div class="empty-info unsortable">
                     <p>{{ piranha.resources.texts.emptyAddAbove }}</p>
@@ -27,8 +26,8 @@
             <div v-for="(child, index) in model.items" v-bind:key="child.meta.uid">
                 <div class="block" :class="child.meta.component + (child.meta.isCollapsed ? ' collapsed' : '')">
                     <div class="block-header">
-                        <div class="title">
-                            <i :class="child.meta.icon"></i><strong>{{ child.meta.name }}</strong>
+                        <div class="title" :class="isEmptyTitle(child.model)?'empty-text':''">
+                            <div contenteditable="true" spellcheck="false" v-html="child.model.title.value" v-on:blur="titleOnBlur($event, child.model)" v-on:focus="titleOnFocus($event, child.model)"></div>
                         </div>
                         <div class="actions">
                             <span v-on:click.prevent="collapseItem(child)" class="btn btn-sm">
@@ -36,76 +35,103 @@
                                 <i v-else class="fas fa-chevron-up"></i>
                             </span>
                             <span class="btn btn-sm handle">
-                                <i class="fas fa-ellipsis-v"></i>
+                                <i class="fas fa-arrows-alt"></i>
                             </span>
                             <button v-on:click.prevent="removeItem(child)" class="btn btn-sm danger" tabindex="-1">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
+                    <hr class="divider" />
                     <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="toolbar" v-bind:model="child.model"></component>
                 </div>
-                <a href="#" class="block-add unsortable" v-on:click.prevent="piranha.blockpicker.open(addGroupBlock, index + 1, model.type)">
-                    <hr>
-                    <i class="fas fa-plus-circle"></i>
-                </a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    props: ["uid", "toolbar", "model"],
-    methods: {
-        collapseItem: function (item) {
-            item.meta.isCollapsed = !item.meta.isCollapsed;
-        },
-        removeItem: function (item) {
-            var itemIndex = this.model.items.indexOf(item);
+    export default {
+        
+        props: ["uid", "toolbar", "model"],
+        methods: {
+            data: function () {
+                return {
+                    emptyTitleText: "Add title here..."
+                }
+            },
+            collapseItem: function (item) {
+                item.meta.isCollapsed = !item.meta.isCollapsed;
+            },
+            removeItem: function (item) {
+                var itemIndex = this.model.items.indexOf(item);
+                this.model.items.splice(itemIndex, 1);
+            },
+            addGroupBlock: function (type, pos) {
+                var self = this;
 
-            this.model.items.splice(itemIndex, 1);
+                fetch(piranha.baseUrl + "manager/api/content/block/" + type)
+                    .then(function (response) { return response.json(); })
+                    .then(function (result) {
+                        sortable("#" + self.uid + " .block-group-items", "destroy");
+                        result.body.model.title.value = self.data().emptyTitleText;
+                        self.model.items.splice(pos, 0, result.body);
+
+                        Vue.nextTick(function () {
+                            sortable("#" + self.uid + " .block-group-items", {
+                                handle: '.handle',
+                                items: ":not(.unsortable)",
+                                placeholderClass: "sortable-placeholder"
+                            })[0].addEventListener("sortupdate", function (e) {
+                                self.moveItem(e.detail.origin.index, e.detail.destination.index);
+                            });
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log("error:", error);
+                    });
+            },
+            toggleHeader: function () {
+                this.model.meta.showHeader = !this.model.meta.showHeader;
+            },
+            moveItem: function (from, to) {
+                this.model.items.splice(to, 0, this.model.items.splice(from, 1)[0])
+            },
+            titleOnFocus: function (e, model) {
+                if (e.target.innerText == this.data().emptyTitleText) {
+                    e.target.innerHtml == "";
+                    model.title.value = "";
+                }
+            },
+            titleOnBlur: function (e, model) {
+                if (piranha.utils.isEmptyText(e.target.innerText)) {
+                    e.target.innerText = this.data().emptyTitleText;
+                }
+
+                model.title.value = e.target.innerText;
+            },
+            isEmptyTitle: function (model) {
+                return piranha.utils.isEmptyText(model.title.value)
+                    || (model.title.value == this.data().emptyTitleText);
+            }
         },
-        addGroupBlock: function (type, pos) {
+        mounted: function () {
             var self = this;
 
-            fetch(piranha.baseUrl + "manager/api/content/block/" + type)
-                .then(function (response) { return response.json(); })
-                .then(function (result) {
-                    sortable("#" + self.uid + " .block-group-items", "destroy");
-
-                    self.model.items.splice(pos, 0, result.body);
-
-                    Vue.nextTick(function () {
-                        sortable("#" + self.uid + " .block-group-items", {
-                            handle: '.handle',
-                            items: ":not(.unsortable)",
-                            placeholderClass: "sortable-placeholder"
-                        })[0].addEventListener("sortupdate", function (e) {
-                            self.moveItem(e.detail.origin.index, e.detail.destination.index);
-                        });
-                    });
-                })
-                .catch(function (error) { console.log("error:", error );
+            sortable("#" + this.uid + " .block-group-items", {
+                handle: '.handle',
+                items: ":not(.unsortable)",
+                placeholderClass: "sortable-placeholder"
+            })[0].addEventListener("sortupdate", function (e) {
+                self.moveItem(e.detail.origin.index, e.detail.destination.index);
             });
         },
-        toggleHeader: function () {
-            this.model.meta.showHeader = !this.model.meta.showHeader;
-        },
-        moveItem: function (from, to) {
-            this.model.items.splice(to, 0, this.model.items.splice(from, 1)[0])
+        created: function () {
+            for (var i = 0; i < this.model.items.length; i++) {
+                if ((this.model.items[i].model.title.value || "") == "") {
+                    this.model.items[i].model.title.value = "Add title here...";
+                }
+            }
         }
-    },
-    mounted: function () {
-        var self = this;
-
-        sortable("#" + this.uid + " .block-group-items", {
-            handle: '.handle',
-            items: ":not(.unsortable)",
-            placeholderClass: "sortable-placeholder"
-        })[0].addEventListener("sortupdate", function (e) {
-            self.moveItem(e.detail.origin.index, e.detail.destination.index);
-        });
     }
-}
 </script>

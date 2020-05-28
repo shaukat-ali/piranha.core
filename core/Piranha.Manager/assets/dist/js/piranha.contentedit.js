@@ -391,12 +391,12 @@ Vue.component("html-block", {
     }
   },
   mounted: function () {
-    piranha.editor.addInline(this.uid, this.toolbar, this.onChange);
+    piranha.editor.addInline(this.uid, this.uid + "_parent", this.onChange);
   },
   beforeDestroy: function () {
     piranha.editor.remove(this.uid);
   },
-  template: "\n<div class=\"block-body\" :class=\"{ empty: isEmpty }\">\n    <div contenteditable=\"true\" :id=\"uid\" spellcheck=\"false\" v-html=\"body\" v-on:blur=\"onBlur\"></div>\n</div>\n"
+  template: "\n<div class=\"block-body\" :class=\"{ empty: isEmpty }\" :id=\"uid + '_parent'\">\n    <div contenteditable=\"true\" :id=\"uid\" spellcheck=\"false\" v-html=\"body\" v-on:blur=\"onBlur\"></div>\n</div>\n"
 });
 Vue.component("html-column-block", {
   props: ["uid", "toolbar", "model"],
