@@ -27,7 +27,8 @@
                 <div class="block" :class="child.meta.component + (child.meta.isCollapsed ? ' collapsed' : '')">
                     <div class="block-header">
                         <div class="title" :class="isEmptyTitle(child.model)?'empty-text':''">
-                            <div contenteditable="true" spellcheck="false" v-html="child.model.title.value" v-on:blur="titleOnBlur($event, child.model)" v-on:focus="titleOnFocus($event, child.model)"></div>
+                            <div contenteditable="true" spellcheck="false" v-text="child.model.title.value" 
+                                 v-on:blur="titleOnBlur($event, child.model)" v-on:focus="titleOnFocus($event, child.model)"></div>
                         </div>
                         <div class="actions">
                             <span v-on:click.prevent="collapseItem(child)" class="btn btn-sm">
@@ -44,7 +45,8 @@
                     </div>
                     <hr class="divider" />
                     <div class="block-body-wrapper" :id="child.meta.uid + '_wrapper'">
-                        <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="child.meta.uid + '_wrapper'" v-bind:model="child.model"></component>
+                        <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="child.meta.uid + '_wrapper'" 
+                                   v-bind:model="child.model"></component>
                     </div>
                 </div>
             </div>
@@ -54,14 +56,13 @@
 
 <script>
     export default {
-        
         props: ["uid", "toolbar", "model"],
+        data: function () {
+            return {
+                emptyTitleText: "Add title here..."
+            }
+        },
         methods: {
-            data: function () {
-                return {
-                    emptyTitleText: "Add title here..."
-                }
-            },
             collapseItem: function (item) {
                 item.meta.isCollapsed = !item.meta.isCollapsed;
             },
@@ -76,7 +77,7 @@
                     .then(function (response) { return response.json(); })
                     .then(function (result) {
                         sortable("#" + self.uid + " .block-group-items", "destroy");
-                        result.body.model.title.value = self.data().emptyTitleText;
+                        result.body.model.title.value = self.emptyTitleText;
                         self.model.items.splice(pos, 0, result.body);
 
                         Vue.nextTick(function () {
@@ -100,21 +101,21 @@
                 this.model.items.splice(to, 0, this.model.items.splice(from, 1)[0])
             },
             titleOnFocus: function (e, model) {
-                if (e.target.innerText == this.data().emptyTitleText) {
+                if (e.target.innerText == this.emptyTitleText) {
                     e.target.innerHtml == "";
                     model.title.value = "";
                 }
             },
             titleOnBlur: function (e, model) {
                 if (piranha.utils.isEmptyText(e.target.innerText)) {
-                    e.target.innerText = this.data().emptyTitleText;
+                    e.target.innerText = this.emptyTitleText;
                 }
 
                 model.title.value = e.target.innerText;
             },
             isEmptyTitle: function (model) {
                 return piranha.utils.isEmptyText(model.title.value)
-                    || (model.title.value == this.data().emptyTitleText);
+                    || (model.title.value == this.emptyTitleText);
             }
         },
         mounted: function () {
@@ -131,7 +132,7 @@
         created: function () {
             for (var i = 0; i < this.model.items.length; i++) {
                 if ((this.model.items[i].model.title.value || "") == "") {
-                    this.model.items[i].model.title.value = "Add title here...";
+                    this.model.items[i].model.title.value = this.emptyTitleText;
                 }
             }
         }

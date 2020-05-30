@@ -5,6 +5,8 @@
 .block {
     &.block-group-collapsible,
     &.block-group-tabs {
+        background: $gray-100;
+
         .block-group-header {
             background: $gray-100;
             padding: 1rem;
@@ -20,26 +22,45 @@
 
         .block-group-actions {
             opacity: 0;
+            right: 5rem;
         }
 
-        .block-body-wrapper {
-            .tox-tinymce {
-                position: absolute;
-                top: 10px;
-                width: auto !important;
+        .actions {
+            .btn {
+                background: $white;
+            }
+        }
+
+        > .block-header {
+            .actions {
+                .btn:first-child {
+                    display: none;
+                }
+            }
+        }
+
+        .block {
+            background: $white;
+
+            .mce-content-body {
+                min-height: 8rem;
             }
         }
     }
 
     &.block-group-collapsible {
-        padding-bottom: 1rem;
+        padding-bottom: 1.75rem;
 
         .block {
             padding-bottom: 1rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-bottom: 1rem;
 
             .block-header {
                 opacity: 1;
                 padding-bottom: 0;
+                padding: .5rem .5rem;
 
                 .title {
                     min-width: 200px;
@@ -72,28 +93,117 @@
             }
 
             &.collapsed {
-                margin-bottom: 1rem;
-
-                hr.divider {
+                hr.divider,
+                .block-body-wrapper {
                     display: none;
                 }
             }
 
-            .mce-content-body {
-                min-height: 8rem;
+            .tox-tinymce {
+                position: absolute;
+                top: 10px;
+                width: auto !important;
+            }
+        }
+    }
+    /* tabs css */
+    &.block-group-tabs {
+        padding-bottom: 2.75rem;
+
+        .block {
+            padding: .5rem;
+        }
+
+        .tox-tinymce {
+            position: absolute;
+            top: 10px;
+            width: auto !important;
+        }
+
+        .list-group {
+            border-bottom: none;
+            flex-direction: row;
+
+            .sortable-placeholder {
+                width: 10rem;
+            }
+        }
+
+        .list-group-item {
+            background: $white;
+            padding: 0 1.5rem 0 2.5rem;
+            border-color: $gray-200;
+            border-bottom: 2px solid $gray-200;
+            margin-right: 0.3rem;
+            min-width: 10rem;
+
+            .actions {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+
+                a {
+                    color: $gray-500;
+                    height: 1.25rem;
+                    width: 1.25rem;
+                    line-height: 1.25rem;
+
+                    &:hover {
+                        color: $danger;
+                        background-color: transparent;
+                    }
+                }
+            }
+
+            .handle {
+                color: $gray-600;
+                position: absolute;
+                left: 0;
+                width: 2rem;
+                border-right: solid 1px $gray-200;
+                text-align: center;
+
+                i {
+                    font-size: 0.9rem;
+                }
+            }
+
+            a.item-link {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 2.75rem;
+
+                &.empty-text {
+                    text-decoration: none;
+
+                    div:not(.handle) {
+                        color: $gray-900;
+                        opacity: 0.4;
+
+                        &:focus-within {
+                            color: $blue;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                border-color: $gray-200;
+                color: $gray-800;
+                font-weight: bold;
+                z-index: auto;
+
+                .handle {
+                    border-color: $gray-300;
+                }
             }
         }
     }
 
-    .block-group-actions {
-        position: absolute;
-        top: .5rem;
-        right: 7rem;
-        transition: opacity ease-in-out .2s;
-    }
-
     &:hover, &:focus-within {
-        .block-group-actions,
         .actions {
             opacity: 1 !important;
         }
