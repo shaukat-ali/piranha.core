@@ -37,7 +37,7 @@ Vue.component("region", {
       });
     }
   },
-  template: "\n<div class=\"row\" v-if=\"!model.meta.isCollection\">\n    <div class=\"col-sm-12\" v-if=\"model.meta.description != null\">\n        <div class=\"alert alert-info\" v-html=\"model.meta.description\"></div>\n    </div>\n    <div class=\"form-group\" :class=\"{ 'col-sm-6': field.meta.isHalfWidth, 'col-sm-12': !field.meta.isHalfWidth }\" v-bind:key=\"'field' + field.meta.uid\" v-for=\"field in model.items[0].fields\">\n        <label v-if=\"model.items[0].fields.length > 1\">{{ field.meta.name }}</label>\n        <div v-if=\"field.meta.description != null\" v-html=\"field.meta.description\" class=\"field-description small text-muted\"></div>\n        <div class=\"field-body\">\n            <div :id=\"'tb-' + field.meta.uid\" class=\"component-toolbar\"></div>\n            <component v-if=\"field.model != null\" v-bind:is=\"field.meta.component\" v-bind:uid=\"field.meta.uid\" v-bind:meta=\"field.meta\" v-bind:toolbar=\"'tb-' + field.meta.uid\" v-bind:model=\"field.model\"></component>\n        </div>\n    </div>\n</div>\n<div v-else>\n    <div v-if=\"model.meta.description != null\">\n        <div class=\"alert alert-info\" v-html=\"model.meta.description\"></div>\n    </div>\n    <div :id=\"model.meta.uid\" class=\"accordion sortable\" :class=\"model.items.length !== 0 ? 'mb-3' : ''\">\n        <div class=\"card\" :key=\"item.uid\" v-for=\"(item) in model.items\">\n            <div class=\"card-header\">\n                <a href=\"#\" :data-toggle=\"!model.meta.expanded ? 'collapse' : false\" :data-target=\"'#body' + item.uid\">\n                    <div class=\"handle\">\n                        <i class=\"fas fa-ellipsis-v\"></i>\n                    </div>\n                    {{ item.title }}\n                </a>\n                <span class=\"actions float-right\">\n                    <a v-on:click.prevent=\"removeItem(item)\" href=\"#\" class=\"danger\"><i class=\"fas fa-trash\"></i></a>\n                </span>\n            </div>\n            <div :id=\"'body' + item.uid\" :class=\"{ 'collapse' : !model.meta.expanded}\" :data-parent=\"'#' + model.meta.uid\">\n                <div class=\"card-body\">\n                    <div class=\"row\">\n                        <div class=\"form-group\" :class=\"{ 'col-sm-6': field.meta.isHalfWidth, 'col-sm-12': !field.meta.isHalfWidth }\" v-bind:key=\"field.meta.uid\" v-for=\"field in item.fields\">\n                            <label>{{ field.meta.name }}</label>\n                            <div v-if=\"field.meta.description != null\" v-html=\"field.meta.description\" class=\"field-description small text-muted\"></div>\n                            <div class=\"field-body\">\n                                <div :id=\"'tb-' + field.meta.uid\" class=\"component-toolbar\"></div>\n                                <component v-if=\"field.model != null\" v-bind:is=\"field.meta.component\" v-bind:uid=\"item.uid\" v-bind:meta=\"field.meta\" v-bind:toolbar=\"'tb-' + field.meta.uid\" v-bind:model=\"field.model\" v-on:update-title=\"updateTitle($event)\"></component>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <a href=\"#\" class=\"block-add\" v-on:click.prevent=\"addItem()\">\n        <hr>\n        <i class=\"fas fa-plus-circle\"></i>\n    </a>\n    <div v-if=\"model.items.length === 0\" class=\"empty-info unsortable\">\n        <p>{{ piranha.resources.texts.emptyAddAbove }}</p>\n    </div>\n</div>\n"
+  template: "\n<div class=\"row\" v-if=\"!model.meta.isCollection\">\n    <div class=\"col-sm-12\" v-if=\"model.meta.description != null\">\n        <div class=\"alert alert-info\" v-html=\"model.meta.description\"></div>\n    </div>\n    <div class=\"form-group\" :class=\"{ 'col-sm-6': field.meta.isHalfWidth, 'col-sm-12': !field.meta.isHalfWidth }\" v-bind:key=\"'field' + field.meta.uid\" v-for=\"field in model.items[0].fields\">\n        <label v-if=\"model.items[0].fields.length > 1\">{{ field.meta.name }}</label>\n        <div v-if=\"field.meta.description != null\" v-html=\"field.meta.description\" class=\"field-description small text-muted\"></div>\n        <div class=\"field-body\">\n            <div :id=\"'tb-' + field.meta.uid\" class=\"component-toolbar\"></div>\n            <component v-if=\"field.model != null\" v-bind:is=\"field.meta.component\" v-bind:uid=\"field.meta.uid\" v-bind:meta=\"field.meta\" v-bind:toolbar=\"'tb-' + field.meta.uid\" v-bind:model=\"field.model\"></component>\n        </div>\n    </div>\n</div>\n<div v-else>\n    <div v-if=\"model.meta.description != null\">\n        <div class=\"alert alert-info\" v-html=\"model.meta.description\"></div>\n    </div>\n    <div :id=\"model.meta.uid\" class=\"accordion sortable\" :class=\"model.items.length !== 0 ? 'mb-3' : ''\">\n        <div class=\"card\" :key=\"item.uid\" v-for=\"(item) in model.items\">\n            <div class=\"card-header\">\n                <a href=\"#\" :data-toggle=\"!model.meta.expanded ? 'collapse' : false\" :data-target=\"'#body' + item.uid\">\n                    <div class=\"handle\">\n                        <i class=\"fas fa-ellipsis-v\"></i>\n                    </div>\n                    {{ item.title }}\n                </a>\n                <span class=\"actions float-right\">\n                    <a v-on:click.prevent=\"removeItem(item)\" href=\"#\" class=\"danger\"><i class=\"fas fa-trash\"></i></a>\n                </span>\n            </div>\n            <div :id=\"'body' + item.uid\" :class=\"{ 'collapse' : !model.meta.expanded}\" :data-parent=\"'#' + model.meta.uid\">\n                <div class=\"card-body\">\n                    <div class=\"row\">\n                        <div class=\"form-group\" :class=\"{ 'col-sm-6': field.meta.isHalfWidth, 'col-sm-12': !field.meta.isHalfWidth }\" v-bind:key=\"field.meta.uid\" v-for=\"field in item.fields\">\n                            <label>{{ field.meta.name }}</label>\n                            <div v-if=\"field.meta.description != null\" v-html=\"field.meta.description\" class=\"field-description small text-muted\"></div>\n                            <div class=\"field-body\">\n                                <div :id=\"'tb-' + field.meta.uid\" class=\"component-toolbar\"></div>\n                                <component v-if=\"field.model != null\" v-bind:is=\"field.meta.component\" v-bind:uid=\"field.meta.uid\" v-bind:meta=\"field.meta\" v-bind:toolbar=\"'tb-' + field.meta.uid\" v-bind:model=\"field.model\" v-on:update-title=\"updateTitle($event)\"></component>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <a href=\"#\" class=\"block-add\" v-on:click.prevent=\"addItem()\">\n        <hr>\n        <i class=\"fas fa-plus-circle\"></i>\n    </a>\n    <div v-if=\"model.items.length === 0\" class=\"empty-info unsortable\">\n        <p>{{ piranha.resources.texts.emptyAddAbove }}</p>\n    </div>\n</div>\n"
 });
 Vue.component("post-archive", {
   props: ["uid", "id"],
@@ -457,7 +457,14 @@ Vue.component("image-block", {
     update: function (media) {
       if (media.type === "Image") {
         this.model.body.id = media.id;
-        this.model.body.media = media; // Tell parent that title has been updated
+        this.model.body.media = {
+          id: media.id,
+          folderId: media.folderId,
+          type: media.type,
+          filename: media.filename,
+          contentType: media.contentType,
+          publicUrl: media.publicUrl
+        }; // Tell parent that title has been updated
 
         this.$emit('update-title', {
           uid: this.uid,
@@ -466,7 +473,15 @@ Vue.component("image-block", {
       } else {
         console.log("No image was selected");
       }
+    },
+    selectAspect: function (val) {
+      this.model.aspect.value = val;
+    },
+
+    isAspectSelected(val) {
+      return this.model.aspect.value === val;
     }
+
   },
   computed: {
     isEmpty: function () {
@@ -478,6 +493,19 @@ Vue.component("image-block", {
       } else {
         return piranha.utils.formatUrl("~/manager/assets/img/empty-image.png");
       }
+    },
+    iconUrl: function () {
+      if (this.model.aspect.value > 0) {
+        if (this.model.aspect.value === 1 || this.model.aspect.value === 3) {
+          return piranha.utils.formatUrl("~/manager/assets/img/icons/img-landscape.svg");
+        } else if (this.model.aspect.value == 2) {
+          return piranha.utils.formatUrl("~/manager/assets/img/icons/img-portrait.svg");
+        } else if (this.model.aspect.value == 4) {
+          return piranha.utils.formatUrl("~/manager/assets/img/icons/img-square.svg");
+        }
+      }
+
+      return null;
     }
   },
   mounted: function () {
@@ -489,7 +517,7 @@ Vue.component("image-block", {
       }
     };
   },
-  template: "\n<div class=\"block-body has-media-picker rounded\" :class=\"{ empty: isEmpty }\">\n    <img class=\"rounded\" :src=\"mediaUrl\">\n    <div class=\"media-picker\">\n        <div class=\"btn-group float-right\">\n            <button v-on:click.prevent=\"select\" class=\"btn btn-primary text-center\">\n                <i class=\"fas fa-plus\"></i>\n            </button>\n            <button v-on:click.prevent=\"remove\" class=\"btn btn-danger text-center\">\n                <i class=\"fas fa-times\"></i>\n            </button>\n        </div>\n        <div class=\"card text-left\">\n            <div class=\"card-body\" v-if=\"isEmpty\">\n                &nbsp;\n            </div>\n            <div class=\"card-body\" v-else>\n                {{ model.body.media.filename }}\n            </div>\n        </div>\n    </div>\n</div>\n"
+  template: "\n<div class=\"block-body has-media-picker rounded\" :class=\"{ empty: isEmpty }\">\n    <img class=\"rounded\" :src=\"mediaUrl\">\n    <div class=\"media-picker\">\n        <div class=\"btn-group float-right\">\n            <button :id=\"uid + '-aspect'\" class=\"btn btn-info btn-aspect text-center\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i v-if=\"model.aspect.value === 0\" class=\"fas fa-cog\"></i>\n                <img v-else :src=\"iconUrl\">\n            </button>\n            <div class=\"dropdown-menu aspect-menu\" :aria-labelledby=\"uid + '-aspect'\">\n                <label class=\"mb-0\">{{ piranha.resources.texts.aspectLabel }}</label>\n                <div class=\"dropdown-divider\"></div>\n                <a v-on:click.prevent=\"selectAspect(0)\" class=\"dropdown-item\" :class=\"{ active: isAspectSelected(0) }\" href=\"#\">\n                    <img :src=\"piranha.utils.formatUrl('~/manager/assets/img/icons/img-original.svg')\"><span>{{ piranha.resources.texts.aspectOriginal }}</span>\n                </a>\n                <a v-on:click.prevent=\"selectAspect(1)\" class=\"dropdown-item\" :class=\"{ active: isAspectSelected(1) }\" href=\"#\">\n                    <img :src=\"piranha.utils.formatUrl('~/manager/assets/img/icons/img-landscape.svg')\"><span>{{ piranha.resources.texts.aspectLandscape }}</span>\n                </a>\n                <a v-on:click.prevent=\"selectAspect(2)\" class=\"dropdown-item\" :class=\"{ active: isAspectSelected(2) }\" href=\"#\">\n                    <img :src=\"piranha.utils.formatUrl('~/manager/assets/img/icons/img-portrait.svg')\"><span>{{ piranha.resources.texts.aspectPortrait }}</span>\n                </a>\n                <a v-on:click.prevent=\"selectAspect(3)\" class=\"dropdown-item\" :class=\"{ active: isAspectSelected(3) }\" href=\"#\">\n                    <img :src=\"piranha.utils.formatUrl('~/manager/assets/img/icons/img-landscape.svg')\"><span>{{ piranha.resources.texts.aspectWidescreen }}</span>\n                </a>\n                <a v-on:click.prevent=\"selectAspect(4)\" class=\"dropdown-item\" :class=\"{ active: isAspectSelected(4) }\" href=\"#\">\n                    <img :src=\"piranha.utils.formatUrl('~/manager/assets/img/icons/img-square.svg')\"><span>{{ piranha.resources.texts.aspectSquare }}</span>\n                </a>\n            </div>\n            <button v-on:click.prevent=\"select\" class=\"btn btn-primary text-center\">\n                <i class=\"fas fa-plus\"></i>\n            </button>\n            <button v-on:click.prevent=\"remove\" class=\"btn btn-danger text-center\">\n                <i class=\"fas fa-times\"></i>\n            </button>\n        </div>\n        <div class=\"card text-left\">\n            <div class=\"card-body\" v-if=\"isEmpty\">\n                &nbsp;\n            </div>\n            <div class=\"card-body\" v-else>\n                {{ model.body.media.filename }}\n            </div>\n        </div>\n    </div>\n</div>\n"
 });
 Vue.component("missing-block", {
   props: ["model"],
