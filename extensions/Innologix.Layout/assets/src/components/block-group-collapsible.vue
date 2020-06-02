@@ -27,7 +27,7 @@
                 <div class="block" :class="child.meta.component + (child.meta.isCollapsed ? ' collapsed' : '')">
                     <div class="block-header">
                         <div class="title" :class="isEmptyTitle(child.model)?'empty-text':''">
-                            <div contenteditable="true" spellcheck="false" v-text="child.model.title.value" 
+                            <div contenteditable="true" spellcheck="false" v-text="getTitle(child.model)"
                                  v-on:blur="titleOnBlur($event, child.model)" v-on:focus="titleOnFocus($event, child.model)"></div>
                         </div>
                         <div class="actions">
@@ -45,7 +45,7 @@
                     </div>
                     <hr class="divider" />
                     <div class="block-body-wrapper" :id="child.meta.uid + '_wrapper'">
-                        <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="child.meta.uid + '_wrapper'" 
+                        <component v-bind:is="child.meta.component" v-bind:uid="child.meta.uid" v-bind:toolbar="child.meta.uid + '_wrapper'"
                                    v-bind:model="child.model"></component>
                     </div>
                 </div>
@@ -102,8 +102,7 @@
             },
             titleOnFocus: function (e, model) {
                 if (e.target.innerText == this.emptyTitleText) {
-                    e.target.innerHtml == "";
-                    model.title.value = "";
+                    e.target.innerText = "";
                 }
             },
             titleOnBlur: function (e, model) {
@@ -116,6 +115,9 @@
             isEmptyTitle: function (model) {
                 return piranha.utils.isEmptyText(model.title.value)
                     || (model.title.value == this.emptyTitleText);
+            },
+            getTitle: function (model) {
+                return piranha.utils.isEmptyText(model.title.value) ? this.emptyTitleText : model.title.value;
             }
         },
         mounted: function () {
@@ -128,13 +130,6 @@
             })[0].addEventListener("sortupdate", function (e) {
                 self.moveItem(e.detail.origin.index, e.detail.destination.index);
             });
-        },
-        created: function () {
-            for (var i = 0; i < this.model.items.length; i++) {
-                if ((this.model.items[i].model.title.value || "") == "") {
-                    this.model.items[i].model.title.value = this.emptyTitleText;
-                }
-            }
         }
     }
 </script>

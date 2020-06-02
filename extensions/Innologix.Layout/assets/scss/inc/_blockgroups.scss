@@ -3,8 +3,11 @@
 @import "variables";
 
 .block {
+    border-radius: 0;
+
     &.block-group-collapsible,
-    &.block-group-tabs {
+    &.block-group-tabs,
+    &.image-caption-block {
         background: $gray-100;
 
         .block-group-header {
@@ -32,6 +35,19 @@
         }
 
         > .block-header {
+            .title {
+                i {
+                    position: absolute;
+                    margin-top: 0;
+                    top: 0.7rem;
+                    font-size: 1.25rem;
+                }
+
+                strong {
+                    margin-left: 2rem;
+                }
+            }
+
             .actions {
                 .btn:first-child {
                     display: none;
@@ -44,6 +60,10 @@
 
             .mce-content-body {
                 min-height: 8rem;
+            }
+
+            .tiny-brand {
+                bottom: 0;
             }
         }
     }
@@ -185,6 +205,7 @@
                         &:focus-within {
                             color: $blue;
                             opacity: 1;
+                            text-decoration: underline;
                         }
                     }
                 }
@@ -198,6 +219,71 @@
 
                 .handle {
                     border-color: $gray-300;
+                }
+            }
+        }
+    }
+
+    &.image-caption-block {
+        .image-block {
+            .has-media-picker {
+                &.empty {
+                    border: .1rem solid $white;
+                }
+            }
+
+            &:hover, &:focus-within {
+                .media-picker {
+                    opacity: 1 !important;
+                }
+            }
+        }
+
+        .block-body {
+            padding-left: 0;
+
+            .title {
+                &.empty:not(:focus-within) {
+                    div {
+                        opacity: 0.4;
+                    }
+                }
+
+                background: white;
+                margin-bottom: .1rem;
+                padding: .5rem;
+                font-size: large;
+            }
+
+            .description {
+                background-color: $white;
+                border: 0.1rem solid $white;
+                min-height: calc(100% - 2.7rem);
+                padding: 0.5rem;
+                display: flex;
+
+                .mce-content-body {
+                    width: 100%;
+                }
+
+                &.empty:not(:focus-within) {
+                    background: url(../img/empty-text.png) 50% 50% no-repeat $gray-100;
+                }
+
+                .tox-tinymce {
+                    position: absolute;
+                    top: 0.5rem;
+                    left: 0;
+                    width: 29rem;
+                    z-index: 100;
+                }
+
+                &:hover:focus-within {
+                    .tiny-brand {
+                        display: block;
+                        bottom: 0;
+                        right: 1.5rem;
+                    }
                 }
             }
         }

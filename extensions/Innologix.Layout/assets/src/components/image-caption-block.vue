@@ -1,0 +1,121 @@
+<template>
+    <div class="row">
+        <div class="image-block col-5">
+            <div class="has-media-picker" :class="{ empty: isMediaEmpty }">
+                <img :src="mediaUrl">
+                <div class="media-picker">
+                    <div class="btn-group float-right">
+                        <button v-on:click.prevent="selectMedia" class="btn btn-primary text-center">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button v-on:click.prevent="removeMedia" class="btn btn-danger text-center">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="card text-left">
+                        <div class="card-body" v-if="isMediaEmpty">
+                            &nbsp;
+                        </div>
+                        <div class="card-body" v-else>
+                            {{ model.media.media.filename }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block-body col-7">
+            <div class="title" :class="{ empty: isEmptyTitle }">
+                <div contenteditable="true" spellcheck="false" v-text="title" v-on:blur="onTitleBlur" v-on:focus="onTitleFocus"></div>
+            </div>
+            <div class="description" :class="{ empty: isEmptyContent }" :id="uid + '_description'">
+                <div contenteditable="true" :id="uid" spellcheck="false" v-html="body" v-on:blur="onBodyBlur"></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: ["uid", "toolbar", "model"],
+        data: function () {
+            return {
+                body: this.model.body.value,
+                emptyTitleText: "Add title here..."
+            };
+        },
+        methods: {
+            onTitleBlur: function (e) {
+                if (piranha.utils.isEmptyText(e.target.innerText)) {
+                    e.target.innerText = this.emptyTitleText;
+                }
+
+                this.model.title.value = e.target.innerText;
+            },
+            onTitleFocus: function (e) {
+                if (e.target.innerText == this.emptyTitleText) {
+                    e.target.innerText = "";
+                }
+            },
+            onBodyBlur: function (e) {
+                this.model.body.value = e.target.innerHTML;
+            },
+            onBodyChange: function (data) {
+                this.model.body.value = data;
+            },
+            selectMedia: function () {
+                if (this.model.media.media != null) {
+                    piranha.mediapicker.open(this.updateMedia, "Image", this.model.media.media.folderId);
+                } else {
+                    piranha.mediapicker.openCurrentFolder(this.updateMedia, "Image");
+                }
+            },
+            removeMedia: function () {
+                this.model.media.id = null;
+                this.model.media.media = null;
+            },
+            updateMedia: function (media) {
+                if (media.type === "Image" || media.type === "Video") {
+                    this.model.media.id = media.id;
+                    this.model.media.media = {
+                        id: media.id,
+                        folderId: media.folderId,
+                        type: media.type,
+                        filename: media.filename,
+                        contentType: media.contentType,
+                        publicUrl: media.publicUrl,
+                    };
+                } else {
+                    console.log("Media not supported");
+                }
+            }
+        },
+        computed: {
+            isEmptyTitle: function () {
+                return piranha.utils.isEmptyText(this.model.title.value)
+                    || (this.model.title.value == this.emptyTitleText);
+            },
+            isEmptyContent: function () {
+                return piranha.utils.isEmptyHtml(this.model.body.value);
+            },
+            isMediaEmpty: function () {
+                return this.model.media.media == null;
+            },
+            title: function () {
+                return this.isEmptyTitle ? this.emptyTitleText : this.model.title.value;
+            },
+            mediaUrl: function () {
+                if (this.model.media.media != null) {
+                    return piranha.utils.formatUrl(this.model.media.media.publicUrl);
+                } else {
+                    return piranha.utils.formatUrl("~/manager/assets/img/empty-image.png");
+                }
+            }
+        },
+        mounted: function () {
+            piranha.editor.addInlineMinimal(this.uid, this.uid + '_description', this.onBodyChange);
+        },
+        beforeDestroy: function () {
+            piranha.editor.remove(this.uid);
+        }
+    }
+</script>

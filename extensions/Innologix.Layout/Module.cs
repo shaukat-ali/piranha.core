@@ -74,6 +74,7 @@ namespace Innologix.Layout.Modules
             App.Blocks.Register<TabsContentBlock>();
             App.Blocks.Register<CollapsibleContentBlock>();
             App.Blocks.Register<BlockGroupItem>();
+            App.Blocks.Register<ImageAndCaptionBlock>();
         }
     }
 }

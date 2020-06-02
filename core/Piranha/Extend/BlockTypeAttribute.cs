@@ -72,6 +72,15 @@ namespace Piranha.Extend
             }
         }
 
+        /// <summary>
+        /// Gets/Sets the order of the block
+        /// </summary>
         public int SortOrder { get; set; } = 1000;
+
+        /// <summary>
+        /// Gets/set the icon svg.
+        /// if svg exists it will display full icon on block selection list
+        /// </summary>
+        public string SvgIcon { get; set; }
     }
 }

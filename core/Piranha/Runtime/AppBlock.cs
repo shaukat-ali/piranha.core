@@ -67,5 +67,7 @@ namespace Piranha.Runtime
         public BlockDisplayMode Display { get; set; } = BlockDisplayMode.MasterDetail;
 
         public int SortOrder { get; set; }    
+
+        public string SvgIcon { get; set; }
     }
 }

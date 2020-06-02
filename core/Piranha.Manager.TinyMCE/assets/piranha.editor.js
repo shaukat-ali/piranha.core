@@ -43,6 +43,29 @@ piranha.editor.addInline = function (id, toolbarId) {
     $("#" + id).parent().append("<a class='tiny-brand' href='https://www.tiny.cloud' target='tiny'>Powered by Tiny</a>");
 };
 
+piranha.editor.addInlineMinimal = function (id, toolbarId) {
+    tinymce.init({
+        selector: "#" + id,
+        browser_spellcheck: true,
+        fixed_toolbar_container: "#" + toolbarId,
+        menubar: false,
+        branding: false,
+        statusbar: false,
+        inline: true,
+        convert_urls: false,
+        plugins: [
+            "autolink code hr paste lists piranhalink"
+        ],
+        toolbar: "bold italic | bullist numlist | alignleft aligncenter alignright | formatselect | piranhalink",
+        extended_valid_elements: piranha.editorconfig.extended_valid_elements,
+        block_formats: piranha.editorconfig.block_formats,
+        style_formats: piranha.editorconfig.style_formats,
+        powerpaste_word_import: 'clean',
+        powerpaste_html_import: 'clean'
+    });
+    $("#" + id).parent().append("<a class='tiny-brand' href='https://www.tiny.cloud' target='tiny'>Powered by Tiny</a>");
+};
+
 //
 // Remove the TinyMCE instance with the given id.
 //

@@ -111,7 +111,8 @@ var js = [
         name: "innologix.contentedit.js",
         items: [
             "assets/src/components/block-group-collapsible.vue",
-            "assets/src/components/block-group-tabs.vue"
+            "assets/src/components/block-group-tabs.vue",
+            "assets/src/components/image-caption-block.vue"
         ]
     }
 ];

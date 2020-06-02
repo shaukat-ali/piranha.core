@@ -23,7 +23,7 @@
                             <div class="handle">
                                 <i class="fas fa-arrows-alt"></i>
                             </div>
-                            <div contenteditable="true" spellcheck="false" v-text="child.model.title.value"
+                            <div contenteditable="true" spellcheck="false" v-text="getTitle(child.model)"
                                  v-on:blur="titleOnBlur($event, child.model)" v-on:focus="titleOnFocus($event, child.model)"></div>
                         </a>
                         <span class='actions'>
@@ -97,8 +97,7 @@
             },
             titleOnFocus: function (e, model) {
                 if (e.target.innerText == this.emptyTitleText) {
-                    e.target.innerHtml == "";
-                    model.title.value = "";
+                    e.target.innerText = "";
                 }
             },
             titleOnBlur: function (e, model) {
@@ -111,6 +110,9 @@
             isEmptyTitle: function (model) {
                 return piranha.utils.isEmptyText(model.title.value)
                     || (model.title.value == this.emptyTitleText);
+            },
+            getTitle: function (model) {
+                return piranha.utils.isEmptyText(model.title.value) ? this.emptyTitleText : model.title.value;
             }
         },
         mounted: function () {
@@ -121,13 +123,6 @@
             })[0].addEventListener("sortupdate", function (e) {
                 self.moveItem(e.detail.origin.index, e.detail.destination.index);
             });
-        },
-        created: function () {
-            for (var i = 0; i < this.model.items.length; i++) {
-                if ((this.model.items[i].model.title.value || "") == "") {
-                    this.model.items[i].model.title.value = this.emptyTitleText;
-                }
-            }
         }
     }
 </script>
