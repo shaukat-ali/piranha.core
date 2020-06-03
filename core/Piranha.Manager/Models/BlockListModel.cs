@@ -52,6 +52,8 @@ namespace Piranha.Manager.Models
             /// Gets/sets the block type.
             /// </summary>
             public string Type { get; set; }
+
+            public string SvgIcon { get; set; }
         }
 
         /// <summary>

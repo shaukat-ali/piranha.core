@@ -1,0 +1,21 @@
+﻿@import "variables";
+
+.blocktype {
+    max-height: 80.4px;
+    overflow: hidden;
+
+    .btn {
+        &.svg-icon {
+            padding: 2px;
+
+            .svg-wrapper {
+                border: 1px solid lightgray;
+
+                object {
+                    margin-top: -2px;
+                    margin-bottom: -6px;
+                }
+            }
+        }
+    }
+}

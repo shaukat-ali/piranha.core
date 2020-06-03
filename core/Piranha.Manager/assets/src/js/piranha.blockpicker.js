@@ -70,9 +70,13 @@ piranha.blockpicker = new Vue({
             return category.items.filter(function (item) {
                 return item.name.toLowerCase().indexOf(self.filter.toLowerCase()) > -1;
             });
+        },
+        hasSvgIcon: function (item) {
+            return !piranha.utils.isEmptyText(item.svgIcon);
         }
     },
     created: function () {
+        
     }
 });
 

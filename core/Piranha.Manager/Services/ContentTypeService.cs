@@ -88,7 +88,8 @@ namespace Piranha.Manager.Services
                     {
                         Name = block.Name,
                         Icon = block.Icon,
-                        Type = block.TypeName
+                        Type = block.TypeName,
+                        SvgIcon = block.SvgIcon
                     });
                 }
                 model.Categories.Add(listCategory);

@@ -29,10 +29,19 @@
                         <div class="blocktype-category">{{ category.name }}</div>
                         <div class="blocktype-list">
                             <div class="blocktype" v-for="item in filterBlockTypes(category)">
-                                <a href="#" class="btn btn-block" v-on:click.prevent="select(item)">
-                                    <i :class="item.icon"></i>
-                                    <span>{{ item.name }}</span>
-                                </a>
+                                <template v-if="hasSvgIcon(item)">
+                                    <a href="#" class="btn btn-block svg-icon" v-on:click.prevent="select(item)">
+                                        <div class="svg-wrapper">
+                                            <object :data="item.svgIcon" type="image/svg+xml"></object>
+                                        </div>
+                                    </a>
+                                </template>
+                                <template v-else>
+                                    <a href="#" class="btn btn-block" v-on:click.prevent="select(item)">
+                                        <i :class="item.icon"></i>
+                                        <span>{{ item.name }}</span>
+                                    </a>
+                                </template>
                             </div>
                         </div>
                     </div>
