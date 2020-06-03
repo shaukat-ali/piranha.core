@@ -162,7 +162,7 @@
                         <i class="fas fa-plus-circle"></i>
                     </a>
                     <div v-for="(block, index) in blocks" v-bind:key="block.meta.uid">
-                        <div :class="'block ' + block.meta.component + (block.meta.isCollapsed ? ' collapsed' : '')">
+                        <div :class="'block ' + block.meta.component + ((block.meta.customCss || '') == ''? '': ' ' + block.meta.customCss) + (block.meta.isCollapsed ? ' collapsed' : '')">
                             <div :id="'tb-' + block.meta.uid" class="component-toolbar"></div>
                             <div class="block-header">
                                 <div class="title">

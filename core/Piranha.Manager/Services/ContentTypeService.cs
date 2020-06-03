@@ -82,7 +82,8 @@ namespace Piranha.Manager.Services
                     items = items.Where(i => !i.IsUnlisted).ToList();
                 }
 
-                foreach (var block in items) {
+                foreach (var block in items)
+                {
                     listCategory.Items.Add(new BlockListModel.ListItem
                     {
                         Name = block.Name,
@@ -94,7 +95,7 @@ namespace Piranha.Manager.Services
             }
 
             // Remove empty categories
-            var empty = model.Categories.Where(c =>  c.Items.Count() == 0).ToList();
+            var empty = model.Categories.Where(c => c.Items.Count() == 0).ToList();
             foreach (var remove in empty)
             {
                 model.Categories.Remove(remove);
@@ -230,18 +231,34 @@ namespace Piranha.Manager.Services
                             Title = block.GetTitle(),
                             Icon = blockType.Icon,
                             Component = "block-group",
-                            IsGroup = true
+                            IsGroup = true,
+                            CustomCss = blockType.CustomCss,
+                            FixedItems = blockType.FixedItems
                         }
                     };
 
                     if (blockType.Display != BlockDisplayMode.MasterDetail)
                     {
                         item.Meta.Component = $"block-group-{blockType.Display.ToString().ToLower()}";
-                            //blockType.Display == BlockDisplayMode.Horizontal ?
-                            //"block-group-horizontal" : "block-group-vertical";
                     }
 
                     item.Fields = ContentUtils.GetBlockFields(block);
+                    foreach (var child in ((BlockGroup)block).Items)
+                    {
+                        blockType = App.Blocks.GetByType(child.Type);
+                        // Regular block item model
+                        item.Items.Add(new BlockItemModel
+                        {
+                            Model = child,
+                            Meta = new BlockMeta
+                            {
+                                Name = blockType.Name,
+                                Title = child.GetTitle(),
+                                Icon = blockType.Icon,
+                                Component = blockType.Component
+                            }
+                        });
+                    }
 
                     return new AsyncResult<BlockModel>
                     {

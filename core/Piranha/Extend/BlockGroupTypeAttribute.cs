@@ -28,5 +28,7 @@ namespace Piranha.Extend
         /// value for this property is false.
         /// </summary>
         public bool UseCustomView { get; set; }
+
+        public int FixedItems { get; set; }
     }
 }

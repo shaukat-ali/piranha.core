@@ -579,7 +579,9 @@ namespace Piranha.Manager.Services
                             Component = "block-group",
                             IsGroup = true,
                             isCollapsed = config.ManagerDefaultCollapsedBlocks,
-                            ShowHeader = !config.ManagerDefaultCollapsedBlockGroupHeaders
+                            ShowHeader = !config.ManagerDefaultCollapsedBlockGroupHeaders,
+                            CustomCss = blockType.CustomCss,
+                            FixedItems = blockType.FixedItems
                         }
                     };
 

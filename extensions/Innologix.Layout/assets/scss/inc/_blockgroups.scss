@@ -7,7 +7,7 @@
 
     &.block-group-collapsible,
     &.block-group-tabs,
-    &.image-caption-block {
+    &.image-text-block {
         background: $gray-100;
 
         .block-group-header {
@@ -224,7 +224,7 @@
         }
     }
 
-    &.image-caption-block {
+    &.image-text-block {
         .image-block {
             .has-media-picker {
                 &.empty {

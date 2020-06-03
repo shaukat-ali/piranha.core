@@ -69,11 +69,13 @@ namespace Piranha.Runtime
                 item.Component = !string.IsNullOrWhiteSpace(attr.Component) ? attr.Component : "missing-block";
                 item.SortOrder = attr.SortOrder;
                 item.SvgIcon = attr.SvgIcon;
+                item.CustomCss = attr.CustomCss;
 
                 if (attr is BlockGroupTypeAttribute groupAttr)
                 {
                     item.UseCustomView = groupAttr.UseCustomView;
                     item.Display = groupAttr.Display;
+                    item.FixedItems = groupAttr.FixedItems;
                 }
             }
 

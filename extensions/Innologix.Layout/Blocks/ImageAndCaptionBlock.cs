@@ -10,8 +10,8 @@ namespace Innologix.Layouts.Blocks
     /// Single column HTML block.
     /// </summary>
     [BlockType(Name = "Image and Text", Category = "Components", Icon = "fa fa-newspaper", 
-        SvgIcon = "1col_h_Image_Caption.svg", Component = "image-caption-block")]
-    public class ImageAndCaptionBlock : Block, ISearchable
+        SvgIcon = "1col_h_Image_Caption.svg", Component = "image-text-block")]
+    public class ImageAndTextBlock : Block, ISearchable
     {
         /// <summary>
         /// Gets/Sets the media
@@ -21,7 +21,6 @@ namespace Innologix.Layouts.Blocks
         /// <summary>
         /// Gets/sets the title 
         /// </summary>
-        [Field(Placeholder = "Add title here...")]
         public StringField Title { get; set; }
 
         /// <summary>

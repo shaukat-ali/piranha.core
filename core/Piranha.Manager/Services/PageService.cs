@@ -640,10 +640,12 @@ namespace Piranha.Manager.Services
 
                 if (block is BlockGroup)
                 {
+                    
                     var group = new BlockGroupModel
                     {
                         Id = block.Id,
                         Type = block.Type,
+                        
                         Meta = new BlockMeta
                         {
                             Name = blockType.Name,
@@ -652,7 +654,9 @@ namespace Piranha.Manager.Services
                             IsGroup = true,
                             IsReadonly = page.OriginalPageId.HasValue,
                             isCollapsed = config.ManagerDefaultCollapsedBlocks,
-                            ShowHeader = !config.ManagerDefaultCollapsedBlockGroupHeaders
+                            ShowHeader = !config.ManagerDefaultCollapsedBlockGroupHeaders,
+                            CustomCss = blockType.CustomCss,
+                            FixedItems = blockType.FixedItems
                         }
                     };
 
