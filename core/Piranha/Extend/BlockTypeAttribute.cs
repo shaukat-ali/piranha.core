@@ -82,7 +82,5 @@ namespace Piranha.Extend
         /// if svg exists it will display full icon on block selection list
         /// </summary>
         public string SvgIcon { get; set; }
-
-        public string CustomCss { get; set; }
     }
 }

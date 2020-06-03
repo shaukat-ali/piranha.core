@@ -650,17 +650,15 @@ namespace Piranha.Manager.Services
                         {
                             Name = blockType.Name,
                             Icon = blockType.Icon,
-                            Component = "block-group",
+                            Component = blockType.UseCustomView ? blockType.Component : "block-group",
                             IsGroup = true,
                             IsReadonly = page.OriginalPageId.HasValue,
                             isCollapsed = config.ManagerDefaultCollapsedBlocks,
                             ShowHeader = !config.ManagerDefaultCollapsedBlockGroupHeaders,
-                            CustomCss = blockType.CustomCss,
-                            FixedItems = blockType.FixedItems
                         }
                     };
 
-                    if (blockType.Display != BlockDisplayMode.MasterDetail)
+                    if (!blockType.UseCustomView && blockType.Display != BlockDisplayMode.MasterDetail)
                     {
                         group.Meta.Component = $"block-group-{blockType.Display.ToString().ToLower()}";
                     }

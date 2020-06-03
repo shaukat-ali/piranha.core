@@ -7,7 +7,8 @@
 
     &.block-group-collapsible,
     &.block-group-tabs,
-    &.image-text-block {
+    &.image-text-block,
+    &.block-grp-2col-image-text {
         background: $gray-100;
 
         .block-group-header {
@@ -287,6 +288,9 @@
                 }
             }
         }
+    }
+
+    &.block-grp-2col-image-text {
     }
 
     &:hover, &:focus-within {

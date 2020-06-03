@@ -34,9 +34,5 @@ namespace Piranha.Manager.Models.Content
         /// If the global header fields should be visible.
         /// </summary>
         public bool ShowHeader { get; set; } = true;
-
-        public string CustomCss { get; set; }
-
-        public int FixedItems { get; set; }
     }
 }

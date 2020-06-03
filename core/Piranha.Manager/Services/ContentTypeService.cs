@@ -230,34 +230,14 @@ namespace Piranha.Manager.Services
                             Name = blockType.Name,
                             Title = block.GetTitle(),
                             Icon = blockType.Icon,
-                            Component = "block-group",
-                            IsGroup = true,
-                            CustomCss = blockType.CustomCss,
-                            FixedItems = blockType.FixedItems
+                            Component = blockType.UseCustomView ? blockType.Component : "block-group",
+                            IsGroup = true
                         }
                     };
 
-                    if (blockType.Display != BlockDisplayMode.MasterDetail)
+                    if (!blockType.UseCustomView && blockType.Display != BlockDisplayMode.MasterDetail)
                     {
                         item.Meta.Component = $"block-group-{blockType.Display.ToString().ToLower()}";
-                    }
-
-                    item.Fields = ContentUtils.GetBlockFields(block);
-                    foreach (var child in ((BlockGroup)block).Items)
-                    {
-                        blockType = App.Blocks.GetByType(child.Type);
-                        // Regular block item model
-                        item.Items.Add(new BlockItemModel
-                        {
-                            Model = child,
-                            Meta = new BlockMeta
-                            {
-                                Name = blockType.Name,
-                                Title = child.GetTitle(),
-                                Icon = blockType.Icon,
-                                Component = blockType.Component
-                            }
-                        });
                     }
 
                     return new AsyncResult<BlockModel>

@@ -1,7 +1,7 @@
 <template>
     <div :id="uid" class="block-group">
         <div class="actions block-group-actions">
-            <button v-if="model.meta.fixedItems == 0" v-on:click.prevent="piranha.blockpicker.open(addGroupBlock, 0, model.type)" class="btn btn-sm add">
+            <button v-on:click.prevent="piranha.blockpicker.open(addGroupBlock, 0, model.type)" class="btn btn-sm add">
                 <i class="fas fa-plus"></i>
             </button>
             <button v-on:click.prevent='toggleHeader()' v-if='model.fields.length > 0' class='btn btn-sm' :class='{ selected: model.meta.showHeader }'>

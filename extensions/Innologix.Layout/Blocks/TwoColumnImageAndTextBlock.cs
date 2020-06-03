@@ -9,8 +9,8 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// Single column quote block.
     /// </summary>
-    [BlockGroupType(Name = "Image and Text(2 Column)", Category = "Components", Icon = "fa fa-newspaper",
-        SvgIcon = "2col_h_image_caption.svg", Display = BlockDisplayMode.Horizontal, CustomCss = "2col-img-text", FixedItems = 2)]
+    [BlockGroupType(Name = "Image and Text(2 Column)", Category = "Components", Icon = "fa fa-newspaper", SvgIcon = "2col_h_image_caption.svg",
+        Display = BlockDisplayMode.Horizontal, Component = "block-grp-2col-image-text", UseCustomView = true)]
     [BlockItemType(Type = typeof(ImageAndTextBlock))]
     public class TwoColumnImageAndTextBlock : BlockGroup, ISearchable
     {

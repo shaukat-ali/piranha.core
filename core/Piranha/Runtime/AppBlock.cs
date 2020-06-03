@@ -69,9 +69,5 @@ namespace Piranha.Runtime
         public int SortOrder { get; set; }    
 
         public string SvgIcon { get; set; }
-
-        public string CustomCss { get; set; }
-
-        public int FixedItems { get; set; }
     }
 }
