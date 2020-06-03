@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row block-body">
         <div class="image-block col-5">
             <div class="has-media-picker" :class="{ empty: isMediaEmpty }">
                 <img :src="mediaUrl">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="block-body col-7">
+        <div class="content-block col-7">
             <div class="title" :class="{ empty: isEmptyTitle }">
                 <div contenteditable="true" spellcheck="false" v-text="title" v-on:blur="onTitleBlur" v-on:focus="onTitleFocus"></div>
             </div>

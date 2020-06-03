@@ -240,6 +240,9 @@ namespace Piranha.Manager.Services
                         item.Meta.Component = $"block-group-{blockType.Display.ToString().ToLower()}";
                     }
 
+                    //Added to initilize child items on new group block create
+                    await CreateGrpBlockChildItems(block, item);
+
                     return new AsyncResult<BlockModel>
                     {
                         Body = item
@@ -287,6 +290,39 @@ namespace Piranha.Manager.Services
                 }
             }
             return null;
+        }
+
+        private async Task CreateGrpBlockChildItems(Block block, BlockGroupModel item)
+        {
+            var blockGrp = (BlockGroup)block;
+            if (blockGrp.ItemsOnCreate > 0)
+            {
+                string childItemType = block.GetType()
+                    .GetCustomAttributesData()
+                    .FirstOrDefault(x => x.AttributeType.Name == "BlockItemTypeAttribute")?.NamedArguments
+                    .FirstOrDefault(x => x.MemberName == "Type").TypedValue.Value.ToString();
+
+                if (!string.IsNullOrEmpty(childItemType))
+                {
+                    var childBlockType = App.Blocks.GetByType(childItemType);
+                    var childBlock = (Block)(await _factory.CreateBlockAsync(childItemType));
+
+                    for (int i = 0; i < blockGrp.ItemsOnCreate; i++)
+                    {
+                        item.Items.Add(new BlockItemModel
+                        {
+                            Model = childBlock,
+                            Meta = new BlockMeta
+                            {
+                                Name = childBlockType.Name,
+                                Title = childBlock.GetTitle(),
+                                Icon = childBlockType.Icon,
+                                Component = childBlockType.Component
+                            }
+                        });
+                    }
+                }
+            }
         }
 
         /// <summary>

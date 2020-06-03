@@ -81,7 +81,6 @@
                 fetch(piranha.baseUrl + "manager/api/content/block/" + type)
                     .then(function (response) { return response.json(); })
                     .then(function (result) {
-                        result.body.model.title.value = self.emptyTitleText;
                         self.model.items.push(result.body);
                         self.selectItem(result.body);
                     })

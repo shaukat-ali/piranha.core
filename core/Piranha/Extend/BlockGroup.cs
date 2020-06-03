@@ -21,5 +21,7 @@ namespace Piranha.Extend
         /// Gets/sets the available blocks in this group.
         /// </summary>
         public IList<Block> Items { get; set; } = new List<Block>();
+
+        public int ItemsOnCreate { get; set; } = 0;
     }
 }

@@ -77,7 +77,6 @@
                     .then(function (response) { return response.json(); })
                     .then(function (result) {
                         sortable("#" + self.uid + " .block-group-items", "destroy");
-                        result.body.model.title.value = self.emptyTitleText;
                         self.model.items.splice(pos, 0, result.body);
 
                         Vue.nextTick(function () {

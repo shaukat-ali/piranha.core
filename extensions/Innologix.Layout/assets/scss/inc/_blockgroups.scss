@@ -240,7 +240,7 @@
             }
         }
 
-        .block-body {
+        .content-block {
             padding-left: 0;
 
             .title {
@@ -274,7 +274,8 @@
                 .tox-tinymce {
                     position: absolute;
                     top: 0.5rem;
-                    left: 0;
+                    left: -2px;
+                    background-color: $white;
                     width: 29rem;
                     z-index: 100;
                 }
@@ -291,6 +292,14 @@
     }
 
     &.block-grp-2col-image-text {
+        .image-text-block {
+            padding: 0;
+            background-color: $gray-100;
+
+            .mce-content-body {
+                min-height: initial;
+            }
+        }
     }
 
     &:hover, &:focus-within {

@@ -14,6 +14,11 @@ namespace Innologix.Layouts.Blocks
     [BlockItemType(Type = typeof(ImageAndTextBlock))]
     public class TwoColumnImageAndTextBlock : BlockGroup, ISearchable
     {
+        public TwoColumnImageAndTextBlock()
+        {
+            ItemsOnCreate = 2;
+        }
+
         /// <summary>
         /// Gets the content that should be indexed for searching.
         /// </summary>
