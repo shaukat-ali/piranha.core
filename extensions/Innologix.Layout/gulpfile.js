@@ -113,7 +113,10 @@ var js = [
             "assets/src/components/image-text-block.vue",
             "assets/src/components/block-group-collapsible.vue",
             "assets/src/components/block-group-tabs.vue",
-            "assets/src/components/block-grp-2col-image-text.vue"
+            "assets/src/components/block-grp-2col-image-text.vue",
+            "assets/src/components/block-grp-2col-v-image-text.vue",
+            "assets/src/components/block-grp-3col-v-image-text.vue",
+            "assets/src/components/block-grp-4col-v-image-text.vue"
         ]
     }
 ];

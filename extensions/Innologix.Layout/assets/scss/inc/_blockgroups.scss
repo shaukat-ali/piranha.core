@@ -3,20 +3,11 @@
 @import "variables";
 
 .block {
-    border-radius: 0;
-
     &.block-group-collapsible,
     &.block-group-tabs,
     &.image-text-block,
-    &.block-grp-2col-image-text {
-        background: $gray-100;
-
-        .block-group-header {
-            background: $gray-100;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: .25rem;
-        }
+    &.block-grp-2col-image-text,
+    &.block-grp-2col-v-image-text {
 
         &:hover, &:focus-within {
             .block:not(.danger):not(.collapsed) {
@@ -27,12 +18,6 @@
         .block-group-actions {
             opacity: 0;
             right: 5rem;
-        }
-
-        .actions {
-            .btn {
-                background: $white;
-            }
         }
 
         > .block-header {
@@ -55,28 +40,18 @@
                 }
             }
         }
-
-        .block {
-            background: $white;
-
-            .mce-content-body {
-                min-height: 8rem;
-            }
-
-            .tiny-brand {
-                bottom: 0;
-            }
-        }
     }
 
     &.block-group-collapsible {
-        padding-bottom: 1.75rem;
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
 
         .block {
             padding-bottom: 1rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-            margin-bottom: 1rem;
+            padding-left: 0.25rem;
+            padding-right: 0.25rem;
+            margin-left: -0.25rem;
+            margin-right: -0.25rem;
 
             .block-header {
                 opacity: 1;
@@ -120,6 +95,10 @@
                 }
             }
 
+            .mce-content-body {
+                min-height: 8rem;
+            }
+
             .tox-tinymce {
                 position: absolute;
                 top: 10px;
@@ -129,10 +108,10 @@
     }
     /* tabs css */
     &.block-group-tabs {
-        padding-bottom: 2.75rem;
+        padding-bottom: 1rem;
 
         .block {
-            padding: .5rem;
+            padding: .5rem 0;
         }
 
         .tox-tinymce {
@@ -142,7 +121,8 @@
         }
 
         .list-group {
-            border-bottom: none;
+            padding-bottom: 2px;
+            border-bottom: 1.5px solid $gray-200;
             flex-direction: row;
 
             .sortable-placeholder {
@@ -153,8 +133,7 @@
         .list-group-item {
             background: $white;
             padding: 0 1.5rem 0 2.5rem;
-            border-color: $gray-200;
-            border-bottom: 2px solid $gray-200;
+            border: 1.5px solid $gray-200;
             margin-right: 0.3rem;
             min-width: 10rem;
 
@@ -195,10 +174,9 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 line-height: 2.75rem;
+                text-decoration: none;
 
                 &.empty-text {
-                    text-decoration: none;
-
                     div:not(.handle) {
                         color: $gray-900;
                         opacity: 0.4;
@@ -206,14 +184,14 @@
                         &:focus-within {
                             color: $blue;
                             opacity: 1;
-                            text-decoration: underline;
                         }
                     }
                 }
             }
 
             &.active {
-                border-color: $gray-200;
+                border-color: $gray-300;
+                background-color: $gray-200;
                 color: $gray-800;
                 font-weight: bold;
                 z-index: auto;
@@ -224,14 +202,13 @@
             }
         }
     }
-
+    /* Image and text bloc css*/
     &.image-text-block {
+        padding-bottom: 1.75rem;
+
         .image-block {
-            .has-media-picker {
-                &.empty {
-                    border: .1rem solid $white;
-                }
-            }
+            flex: 0 0 42%;
+            max-width: 42%;
 
             &:hover, &:focus-within {
                 .media-picker {
@@ -244,60 +221,89 @@
             padding-left: 0;
 
             .title {
+                padding: 0.5rem;
+                font-size: large;
+                border: 1px dotted $gray-400;
+                ;
+
                 &.empty:not(:focus-within) {
                     div {
                         opacity: 0.4;
                     }
                 }
-
-                background: white;
-                margin-bottom: .1rem;
-                padding: .5rem;
-                font-size: large;
             }
 
             .description {
                 background-color: $white;
-                border: 0.1rem solid $white;
-                min-height: calc(100% - 2.7rem);
+                min-height: calc(100% - 3.2rem);
                 padding: 0.5rem;
                 display: flex;
+                border: 1px dotted $gray-400;
+                margin-top: 5px;
 
                 .mce-content-body {
                     width: 100%;
                 }
 
-                &.empty:not(:focus-within) {
-                    background: url(../img/empty-text.png) 50% 50% no-repeat $gray-100;
-                }
-
                 .tox-tinymce {
                     position: absolute;
                     top: 0.5rem;
-                    left: -2px;
-                    background-color: $white;
                     width: 29rem;
                     z-index: 100;
                 }
 
-                &:hover:focus-within {
+                &:hover, &:focus-within {
                     .tiny-brand {
                         display: block;
-                        bottom: 0;
+                        bottom: -1.2rem;
                         right: 1.5rem;
+                    }
+                }
+
+                &.empty:not(:focus-within) {
+                    .mce-content-body {
+                        opacity: 0.4;
                     }
                 }
             }
         }
     }
 
-    &.block-grp-2col-image-text {
+    &.block-grp-2col-image-text,
+    &.block-grp-2col-v-image-text {
         .image-text-block {
             padding: 0;
             background-color: $gray-100;
 
             .mce-content-body {
                 min-height: initial;
+            }
+        }
+    }
+
+    &.block-grp-2col-v-image-text {
+        .image-text-block {
+            .block-body {
+                flex-direction: column;
+
+                .image-block {
+                    flex: initial;
+                    max-width: initial;
+                }
+
+                .content-block {
+                    padding-top: 1.5rem;
+                    padding-left: 15px;
+
+                    .description {
+                        min-height: 6rem;
+
+                        .tox-tinymce {
+                            top: 2rem;
+                            left: 13px;
+                        }
+                    }
+                }
             }
         }
     }

@@ -31,8 +31,7 @@
                             <div class="blocktype" v-for="item in filterBlockTypes(category)">
                                 <template v-if="hasSvgIcon(item)">
                                     <a href="#" class="btn btn-block svg-icon" v-on:click.prevent="select(item)">
-                                        <div class="svg-wrapper">
-                                            <object :data="item.svgIcon" type="image/svg+xml"></object>
+                                        <div class="svg-wrapper" :style="'background-image: url(' + item.svgIcon + ');'">
                                         </div>
                                     </a>
                                 </template>

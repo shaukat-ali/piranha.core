@@ -1,6 +1,6 @@
 <template>
     <div class="row block-body">
-        <div class="image-block col-5">
+        <div class="image-block col">
             <div class="has-media-picker" :class="{ empty: isMediaEmpty }">
                 <img :src="mediaUrl">
                 <div class="media-picker">
@@ -23,12 +23,12 @@
                 </div>
             </div>
         </div>
-        <div class="content-block col-7">
+        <div class="content-block col">
             <div class="title" :class="{ empty: isEmptyTitle }">
                 <div contenteditable="true" spellcheck="false" v-text="title" v-on:blur="onTitleBlur" v-on:focus="onTitleFocus"></div>
             </div>
             <div class="description" :class="{ empty: isEmptyContent }" :id="uid + '_description'">
-                <div contenteditable="true" :id="uid" spellcheck="false" v-html="body" v-on:blur="onBodyBlur"></div>
+                <div contenteditable="true" :id="uid" spellcheck="false" v-html="body" v-on:blur="onBodyBlur" v-on:focus="onBodyFocus"></div>
             </div>
         </div>
     </div>
@@ -39,8 +39,8 @@
         props: ["uid", "toolbar", "model"],
         data: function () {
             return {
-                body: this.model.body.value,
-                emptyTitleText: "Add title here..."
+                emptyTitleText: "Add title...",
+                emptyDescriptionText: "Add description..."
             };
         },
         methods: {
@@ -57,7 +57,16 @@
                 }
             },
             onBodyBlur: function (e) {
+                if (piranha.utils.isEmptyText(e.target.innerText)) {
+                    e.target.innerText = this.emptyDescriptionText;
+                }
+
                 this.model.body.value = e.target.innerHTML;
+            },
+            onBodyFocus: function (e) {
+                if (e.target.innerText == this.emptyDescriptionText) {
+                    e.target.innerHTML = "";
+                }
             },
             onBodyChange: function (data) {
                 this.model.body.value = data;
@@ -95,13 +104,17 @@
                     || (this.model.title.value == this.emptyTitleText);
             },
             isEmptyContent: function () {
-                return piranha.utils.isEmptyHtml(this.model.body.value);
+                return piranha.utils.isEmptyHtml(this.model.body.value)
+                    || (this.model.body.value == this.emptyDescriptionText);
             },
             isMediaEmpty: function () {
                 return this.model.media.media == null;
             },
             title: function () {
                 return this.isEmptyTitle ? this.emptyTitleText : this.model.title.value;
+            },
+            body: function () {
+                return this.isEmptyContent ? this.emptyDescriptionText : this.model.body.value;
             },
             mediaUrl: function () {
                 if (this.model.media.media != null) {

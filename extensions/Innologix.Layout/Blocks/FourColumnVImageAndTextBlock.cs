@@ -7,17 +7,17 @@ using Piranha.Models;
 namespace Innologix.Layouts.Blocks
 {
     /// <summary>
-    /// two column image and text block horizontal aligned.
+    /// two column image and text block vertical aligned.
     /// </summary>
-    [BlockGroupType(Name = "Image and Text (2 Column)", Category = "Components", Icon = "fa fa-newspaper",
-        Display = BlockDisplayMode.Horizontal, Component = "block-grp-2col-image-text", UseCustomView = true,
-        SvgIcon = "/manager/assets/svg/2col_h_image_caption.svg")]
+    [BlockGroupType(Name = "Image and Text (2 Column Vertical)", Category = "Components", Icon = "fa fa-newspaper",
+        Display = BlockDisplayMode.Horizontal, Component = "block-grp-4col-v-image-text", UseCustomView = true,
+        SvgIcon = "/manager/assets/svg/4col_v_image_caption.svg")]
     [BlockItemType(Type = typeof(ImageAndTextBlock))]
-    public class TwoColumnImageAndTextBlock : BlockGroup, ISearchable
+    public class FourColumnVImageAndTextBlock : BlockGroup, ISearchable
     {
-        public TwoColumnImageAndTextBlock()
+        public FourColumnVImageAndTextBlock()
         {
-            ItemsOnCreate = 2;
+            ItemsOnCreate = 4;
         }
 
         /// <summary>
