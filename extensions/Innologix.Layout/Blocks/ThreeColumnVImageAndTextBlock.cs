@@ -9,7 +9,7 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// two column image and text block vertical aligned.
     /// </summary>
-    [BlockGroupType(Name = "Image and Text (2 Column Vertical)", Category = "Components", Icon = "fa fa-newspaper",
+    [BlockGroupType(Name = "Image and Text (3 Column Vertical)", Category = "Components", Icon = "fa fa-newspaper",
         Display = BlockDisplayMode.Horizontal, Component = "block-grp-3col-v-image-text", UseCustomView = true,
         SvgIcon = "/manager/assets/svg/3col_v_image_caption.svg")]
     [BlockItemType(Type = typeof(ImageAndTextBlock))]
