@@ -224,7 +224,6 @@
                 padding: 0.5rem;
                 font-size: large;
                 border: 1px dotted $gray-400;
-                ;
 
                 &.empty:not(:focus-within) {
                     div {
@@ -324,7 +323,6 @@
             .mce-content-body {
                 min-height: initial;
             }
-
 
             &:focus-within, &:hover {
                 border-color: transparent;

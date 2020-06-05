@@ -2,7 +2,7 @@
     <div class="row block-body">
         <div class="image-block col">
             <div class="has-media-picker" :class="{ empty: isMediaEmpty }">
-                <img :src="mediaUrl">
+                <img v-if="!isMediaEmpty" :src="mediaUrl">
                 <div class="media-picker">
                     <div class="btn-group float-right">
                         <button v-on:click.prevent="selectMedia" class="btn btn-primary text-center">
