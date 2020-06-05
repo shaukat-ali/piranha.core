@@ -79,6 +79,7 @@ namespace Innologix.Layout.Modules
             App.Blocks.Register<TwoColumnVImageAndTextBlock>();
             App.Blocks.Register<ThreeColumnVImageAndTextBlock>();
             App.Blocks.Register<FourColumnVImageAndTextBlock>();
+            App.Blocks.Register<TwoColumnThreeImagesBlock>();
         }
     }
 }

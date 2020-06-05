@@ -270,6 +270,48 @@
         }
     }
 
+    &.block-grp-2col-3images {
+        padding-bottom: 1.75rem;
+
+        .grp-block-1 {
+            flex: 0 0 36%;
+            max-width: 36%;
+            margin: -1rem;
+
+            .image-block {
+                padding: 1rem;
+
+                .block-body {
+                    min-height: 8rem;
+
+                    &.empty {
+                        min-height: 12rem;
+                    }
+                }
+            }
+        }
+
+        .grp-block-2 {
+            display: flex;
+
+            .image-block {
+                width: 100%;
+
+                .block-body {
+                    height: 100%;
+                }
+            }
+        }
+
+        .image-block {
+            padding: 0;
+
+            &:focus-within, &:hover {
+                border-color: transparent;
+            }
+        }
+    }
+
     &.block-grp-2col-image-text,
     &.block-grp-2col-v-image-text,
     &.block-grp-3col-v-image-text,

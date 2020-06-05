@@ -1,2 +1,11 @@
 ﻿@import "inc/blockgroups";
 @import "inc/blocktypes";
+
+/* Overrides */
+.image-block {
+    .has-media-picker.empty {
+        background-image: url("/manager/assets/img/empty-image.png");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}

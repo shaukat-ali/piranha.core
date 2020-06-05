@@ -9,9 +9,8 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// two column image and text block horizontal aligned.
     /// </summary>
-    [BlockGroupType(Name = "Image and Text (2 Column)", Category = "Components", Icon = "fa fa-newspaper",
-        Display = BlockDisplayMode.Horizontal, Component = "block-grp-2col-image-text", UseCustomView = true,
-        SvgIcon = "/manager/assets/svg/2col_h_image_caption.svg")]
+    [BlockGroupType(Name = "Image and Text (2 Column)", Category = "Components", Icon = "fa fa-newspaper", UseCustomView = true,
+        Component = "block-grp-2col-image-text", SvgIcon = "/manager/assets/svg/2col_h_image_caption.svg")]
     [BlockItemType(Type = typeof(ImageAndTextBlock))]
     public class TwoColumnImageAndTextBlock : BlockGroup, ISearchable
     {

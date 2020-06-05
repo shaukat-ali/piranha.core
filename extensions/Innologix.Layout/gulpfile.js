@@ -116,7 +116,8 @@ var js = [
             "assets/src/components/block-grp-2col-image-text.vue",
             "assets/src/components/block-grp-2col-v-image-text.vue",
             "assets/src/components/block-grp-3col-v-image-text.vue",
-            "assets/src/components/block-grp-4col-v-image-text.vue"
+            "assets/src/components/block-grp-4col-v-image-text.vue",
+            "assets/src/components/block-grp-2col-3images.vue"
         ]
     }
 ];

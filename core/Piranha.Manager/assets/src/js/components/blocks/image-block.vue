@@ -1,6 +1,6 @@
 <template>
     <div class="block-body has-media-picker rounded" :class="{ empty: isEmpty }">
-        <img class="rounded" :src="mediaUrl">
+        <img v-if="!isEmpty" class="rounded" :src="mediaUrl">
         <div class="media-picker">
             <div class="btn-group float-right">
                 <button :id="uid + '-aspect'" class="btn btn-info btn-aspect text-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,83 +46,83 @@
 </template>
 
 <script>
-export default {
-    props: ["uid", "model"],
-    methods: {
-        clear: function () {
-            // clear media from block
-        },
-        select: function () {
-            if (this.model.body.media != null) {
-                piranha.mediapicker.open(this.update, "Image", this.model.body.media.folderId);
-            } else {
-                piranha.mediapicker.openCurrentFolder(this.update, "Image");
-            }
-        },
-        remove: function () {
-            this.model.body.id = null;
-            this.model.body.media = null;
-        },
-        update: function (media) {
-            if (media.type === "Image") {
-                this.model.body.id = media.id;
-                this.model.body.media = {
-                    id: media.id,
-                    folderId: media.folderId,
-                    type: media.type,
-                    filename: media.filename,
-                    contentType: media.contentType,
-                    publicUrl: media.publicUrl,
-                };
-
-                // Tell parent that title has been updated
-                this.$emit('update-title', {
-                    uid: this.uid,
-                    title: this.model.body.media.filename
-                });
-            } else {
-                console.log("No image was selected");
-            }
-        },
-        selectAspect: function (val) {
-            this.model.aspect.value = val;
-        },
-        isAspectSelected (val) {
-            return this.model.aspect.value === val;
-        }
-    },
-    computed: {
-        isEmpty: function () {
-            return this.model.body.media == null;
-        },
-        mediaUrl: function () {
-            if (this.model.body.media != null) {
-                return piranha.utils.formatUrl(this.model.body.media.publicUrl);
-            } else {
-                return piranha.utils.formatUrl("~/manager/assets/img/empty-image.png");
-            }
-        },
-        iconUrl: function () {
-            if (this.model.aspect.value > 0) {
-                if (this.model.aspect.value === 1 || this.model.aspect.value === 3) {
-                    return piranha.utils.formatUrl("~/manager/assets/img/icons/img-landscape.svg");
-                } else if (this.model.aspect.value == 2) {
-                    return piranha.utils.formatUrl("~/manager/assets/img/icons/img-portrait.svg");
-                } else if (this.model.aspect.value == 4) {
-                    return piranha.utils.formatUrl("~/manager/assets/img/icons/img-square.svg");
+    export default {
+        props: ["uid", "model"],
+        methods: {
+            clear: function () {
+                // clear media from block
+            },
+            select: function () {
+                if (this.model.body.media != null) {
+                    piranha.mediapicker.open(this.update, "Image", this.model.body.media.folderId);
+                } else {
+                    piranha.mediapicker.openCurrentFolder(this.update, "Image");
                 }
+            },
+            remove: function () {
+                this.model.body.id = null;
+                this.model.body.media = null;
+            },
+            update: function (media) {
+                if (media.type === "Image") {
+                    this.model.body.id = media.id;
+                    this.model.body.media = {
+                        id: media.id,
+                        folderId: media.folderId,
+                        type: media.type,
+                        filename: media.filename,
+                        contentType: media.contentType,
+                        publicUrl: media.publicUrl,
+                    };
+
+                    // Tell parent that title has been updated
+                    this.$emit('update-title', {
+                        uid: this.uid,
+                        title: this.model.body.media.filename
+                    });
+                } else {
+                    console.log("No image was selected");
+                }
+            },
+            selectAspect: function (val) {
+                this.model.aspect.value = val;
+            },
+            isAspectSelected(val) {
+                return this.model.aspect.value === val;
             }
-            return null;
+        },
+        computed: {
+            isEmpty: function () {
+                return this.model.body.media == null;
+            },
+            mediaUrl: function () {
+                if (this.model.body.media != null) {
+                    return piranha.utils.formatUrl(this.model.body.media.publicUrl);
+                } else {
+                    return piranha.utils.formatUrl("~/manager/assets/img/empty-image.png");
+                }
+            },
+            iconUrl: function () {
+                if (this.model.aspect.value > 0) {
+                    if (this.model.aspect.value === 1 || this.model.aspect.value === 3) {
+                        return piranha.utils.formatUrl("~/manager/assets/img/icons/img-landscape.svg");
+                    } else if (this.model.aspect.value == 2) {
+                        return piranha.utils.formatUrl("~/manager/assets/img/icons/img-portrait.svg");
+                    } else if (this.model.aspect.value == 4) {
+                        return piranha.utils.formatUrl("~/manager/assets/img/icons/img-square.svg");
+                    }
+                }
+                return null;
+            }
+        },
+        mounted: function () {
+            this.model.getTitle = function () {
+                if (this.model.media != null) {
+                    return this.model.media.filename;
+                } else {
+                    return "No image selected";
+                }
+            };
         }
-    },
-    mounted: function() {
-        this.model.getTitle = function () {
-            if (this.model.media != null) {
-                return this.model.media.filename;
-            } else {
-                return "No image selected";
-            }
-        };
     }
-}
 </script>
