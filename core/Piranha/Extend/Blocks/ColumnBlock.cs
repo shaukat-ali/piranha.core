@@ -16,7 +16,7 @@ namespace Piranha.Extend.Blocks
     /// <summary>
     /// Single column quote block.
     /// </summary>
-    [BlockGroupType(Name = "Columns", Category = "Layouts", Icon = "fas fa-columns", Display = BlockDisplayMode.Horizontal, SortOrder = 100)]
+    [BlockGroupType(Name = "Columns", Category = "Content", Icon = "fas fa-columns", Display = BlockDisplayMode.Horizontal, SortOrder = 600)]
     public class ColumnBlock : BlockGroup, ISearchable
     {
         /// <summary>

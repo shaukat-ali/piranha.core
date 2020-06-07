@@ -9,7 +9,7 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// two column image and text block horizontal aligned.
     /// </summary>
-    [BlockGroupType(Name = "Three Images", Category = "Components", Icon = "fa fa-newspaper", UseCustomView = true,
+    [BlockGroupType(Name = "Three Images", Category = "Layouts", Icon = "fa fa-newspaper", UseCustomView = true,
         Component = "block-grp-2col-3images", SvgIcon = "/manager/assets/svg/2col_3images.svg")]
     [BlockItemType(Type = typeof(ImageLinkBlock))]
     public class TwoColumnThreeImagesBlock : BlockGroup, ISearchable

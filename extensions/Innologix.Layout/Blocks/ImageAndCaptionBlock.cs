@@ -9,7 +9,7 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// Single column HTML block.
     /// </summary>
-    [BlockType(Name = "Image and Text", Category = "Components", Icon = "fa fa-newspaper", Component = "image-text-block", 
+    [BlockType(Name = "Image and Text", Category = "Layouts", Icon = "fa fa-newspaper", Component = "image-text-block", 
         SvgIcon = "/manager/assets/svg/1col_h_Image_Caption.svg")]
     public class ImageAndTextBlock : Block, ISearchable
     {

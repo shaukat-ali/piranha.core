@@ -9,7 +9,7 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// Single column quote block.
     /// </summary>
-    [BlockGroupType(Name = "Collapsible", Category = "Layouts", Icon = "fas fa-chevron-up", Display = BlockDisplayMode.Collapsible)]
+    [BlockGroupType(Name = "Collapsible", Category = "Content", Icon = "fas fa-chevron-up", Display = BlockDisplayMode.Collapsible)]
     [BlockItemType(Type = typeof(BlockGroupItem))]
     public class CollapsibleContentBlock : BlockGroup, ISearchable
     {

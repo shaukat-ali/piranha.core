@@ -9,7 +9,7 @@ namespace Innologix.Layouts.Blocks
     /// <summary>
     /// two column image and text block vertical aligned.
     /// </summary>
-    [BlockGroupType(Name = "Image and Text (4 Column Vertical)", Category = "Components", Icon = "fa fa-newspaper", UseCustomView = true,
+    [BlockGroupType(Name = "Image and Text (4 Column Vertical)", Category = "Layouts", Icon = "fa fa-newspaper", UseCustomView = true,
         Component = "block-grp-4col-v-image-text", SvgIcon = "/manager/assets/svg/4col_v_image_caption.svg")]
     [BlockItemType(Type = typeof(ImageAndTextBlock))]
     public class FourColumnVImageAndTextBlock : BlockGroup, ISearchable
