@@ -3,22 +3,30 @@
         <div class="image-block col">
             <div class="has-media-picker" :class="{ empty: isMediaEmpty }">
                 <img v-if="!isMediaEmpty" :src="mediaUrl">
-                <div class="media-picker">
+                <div class="media-picker" :class="{ 'has-image': isImage }" v-if="!showLinker">
                     <div class="btn-group float-right">
+                        <button v-if="!isMediaEmpty && isImage" v-on:click.prevent="linkMedia" class="btn btn-info text-center">
+                            <i class="fas fa-link"></i>
+                        </button>
                         <button v-on:click.prevent="selectMedia" class="btn btn-primary text-center">
                             <i class="fas fa-plus"></i>
                         </button>
-                        <button v-on:click.prevent="removeMedia" class="btn btn-danger text-center">
+                        <button v-if="!isMediaEmpty" v-on:click.prevent="removeMedia" class="btn btn-danger text-center">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="media-linker" v-if="!isMediaEmpty && isImage && showLinker">
+                    <div class="btn-group float-right">
+                        <button v-on:click.prevent="saveLink" class="btn btn-success text-center">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button v-on:click.prevent="removeLink" class="btn btn-danger text-center">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
                     <div class="card text-left">
-                        <div class="card-body" v-if="isMediaEmpty">
-                            &nbsp;
-                        </div>
-                        <div class="card-body" v-else>
-                            {{ model.media.media.filename }}
-                        </div>
+                        <input type="text" :value="model.imageCTALink.value" :id="uid + '_link'" />
                     </div>
                 </div>
             </div>
@@ -40,7 +48,8 @@
         data: function () {
             return {
                 emptyTitleText: "Add title...",
-                emptyDescriptionText: "Add description..."
+                emptyDescriptionText: "Add description...",
+                showLinker: false
             };
         },
         methods: {
@@ -96,6 +105,19 @@
                 } else {
                     console.log("Media not supported");
                 }
+            },
+            linkMedia: function () {
+                this.showLinker = true;
+            },
+            saveLink: function () {
+                var txtBox = document.getElementById(this.uid + '_link');
+                this.model.imageCTALink.value = txtBox.value;
+                this.showLinker = false;
+            },
+            removeLink: function () {
+                var txtBox = document.getElementById(this.uid + '_link');
+                this.model.imageCTALink.value = txtBox.value = "";
+                this.showLinker = false;
             }
         },
         computed: {
@@ -109,6 +131,10 @@
             },
             isMediaEmpty: function () {
                 return this.model.media.media == null;
+            },
+            isImage: function () {
+                return this.model.media.media != null
+                    && (this.model.media.media.type === "Image" || this.model.media.media.type == 2);
             },
             title: function () {
                 return this.isEmptyTitle ? this.emptyTitleText : this.model.title.value;

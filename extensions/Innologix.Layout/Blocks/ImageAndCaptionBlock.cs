@@ -18,6 +18,8 @@ namespace Innologix.Layouts.Blocks
         /// </summary>
         public MediaField Media { get; set; }
 
+        public StringField ImageCTALink { get; set; }
+
         /// <summary>
         /// Gets/sets the title 
         /// </summary>

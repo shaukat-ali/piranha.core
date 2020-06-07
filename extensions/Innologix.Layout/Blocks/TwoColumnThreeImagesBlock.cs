@@ -11,7 +11,7 @@ namespace Innologix.Layouts.Blocks
     /// </summary>
     [BlockGroupType(Name = "Three Images", Category = "Components", Icon = "fa fa-newspaper", UseCustomView = true,
         Component = "block-grp-2col-3images", SvgIcon = "/manager/assets/svg/2col_3images.svg")]
-    [BlockItemType(Type = typeof(ImageBlock))]
+    [BlockItemType(Type = typeof(ImageLinkBlock))]
     public class TwoColumnThreeImagesBlock : BlockGroup, ISearchable
     {
         public TwoColumnThreeImagesBlock()

@@ -223,7 +223,7 @@
             .title {
                 padding: 0.5rem;
                 font-size: large;
-                border: 1px dotted $gray-400;
+                border: 1px dashed $gray-400;
 
                 &.empty:not(:focus-within) {
                     div {
@@ -237,7 +237,7 @@
                 min-height: calc(100% - 3.2rem);
                 padding: 0.5rem;
                 display: flex;
-                border: 1px dotted $gray-400;
+                border: 1px dashed $gray-400;
                 margin-top: 5px;
 
                 .mce-content-body {
@@ -277,7 +277,7 @@
             max-width: 36%;
             margin: -1rem;
 
-            .image-block {
+            .image-link-block {
                 padding: 1rem;
 
                 .block-body {
@@ -293,7 +293,7 @@
         .grp-block-2 {
             display: flex;
 
-            .image-block {
+            .image-link-block {
                 width: 100%;
 
                 .block-body {
@@ -302,7 +302,7 @@
             }
         }
 
-        .image-block {
+        .image-link-block {
             padding: 0;
 
             &:focus-within, &:hover {
