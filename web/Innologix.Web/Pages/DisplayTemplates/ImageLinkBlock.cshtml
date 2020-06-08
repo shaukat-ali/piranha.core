@@ -1,0 +1,8 @@
+@model Innologix.Layouts.Blocks.ImageLinkBlock
+
+<div class="block image-block">
+    @if (Model.Body != null && Model.Body.Media != null)
+    {
+        <img src="@Url.Content(Model.Body)" alt="@Model.Body.Media.AltText" title="@Model.Body.Media.Title">
+    }
+</div>
