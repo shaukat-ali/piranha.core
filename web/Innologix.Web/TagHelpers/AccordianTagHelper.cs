@@ -20,12 +20,18 @@ namespace Innologix.Web.TagHelpers
                 var item = Items[n] as BlockGroupItem;
 
                 content.AppendLine($@"
-                    <div>
-                        <a class=""btn btn-link btn-block text-left"" data-toggle=""collapse"" data-target=""#item_{item.Id:N}"" aria-expanded=""{(n == 0 ? "true" : "false")}"">
-                            {item.Title.Value}
-                        </a>
+                    <div  class=""card"">
+                        <div class""card-header"">
+                            <h3>
+                                <a class=""btn btn-link btn-block text-left"" data-toggle=""collapse"" data-target=""#item_{item.Id:N}"" aria-expanded=""{(n == 0 ? "true" : "false")}"">
+                                    {item.Title.Value}
+                                </a>
+                            </h3>
+                        </div>
                         <div id=""item_{item.Id:N}"" class=""collapse {(n == 0 ? "show" : "")}"" aria-labelledby=""headingOne"" data-parent=""#accordian_{Id}"">
-                            {item.Body.Value}
+                            <div class=""card-body"">
+                                {item.Body.Value}
+                            </div>
                         </div>
                     </div>
                 ");
