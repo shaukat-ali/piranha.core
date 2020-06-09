@@ -1,0 +1,46 @@
+﻿.block {
+    &.image-text-block {
+        .image-block {
+            flex: 0 0 42%;
+            max-width: 42%;
+        }
+
+        .content-block {
+            .title {
+                padding: 0.5rem;
+                font-size: large;
+            }
+        }
+    }
+
+    &.block-grp-2col {
+        .image-text-block {
+            .image-block {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+    }
+
+    &.block-grp-2col-v,
+    &.block-grp-3col,
+    &.block-grp-4col {
+        .image-text-block {
+            flex-direction: column;
+
+            .image-block {
+                flex: initial;
+                max-width: initial;
+            }
+        }
+    }
+
+    &.block-grp-4col {
+        .description {
+            display: none;
+        }
+    }
+
+    &.block-grp-2col-3images {
+    }
+}

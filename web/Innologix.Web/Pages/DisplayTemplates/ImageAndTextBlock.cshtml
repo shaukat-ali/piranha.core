@@ -1,8 +1,20 @@
 @model Innologix.Layouts.Blocks.ImageAndTextBlock
 
-<div class="block image-block">
-    @if (Model.Media != null && Model.Media.Media != null)
-    {
-        <img src="@Url.Content(Model.Media)" alt="@Model.Media.Media.AltText" title="@Model.Media.Media.Title">
-    }
+<div class="row block image-text-block">
+    <div class="image-block col">
+        @if (Model.Media != null && Model.Media.Media != null)
+        {
+            <img src="@Url.Content(Model.Media)" alt="@Model.Media.Media.AltText" title="@Model.Media.Media.Title">
+        }
+    </div>
+    <div class="content-block col">
+        <div class="title @(string.IsNullOrEmpty(Model.Title.Value)?"empty":"")">
+            <h2>
+                @Model.Title.Value
+            </h2>
+        </div>
+        <div class="description" @(string.IsNullOrEmpty(Model.Body.Value)?"empty":"")>
+            @Html.Raw(Model.Body.Value)
+        </div>
+    </div>
 </div>
